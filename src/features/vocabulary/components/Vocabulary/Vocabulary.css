@@ -1,0 +1,39 @@
+.vocabulary {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas:
+        "title title"
+        "list item";
+    grid-template-columns: 1fr 1.5fr;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.vocabulary__title {
+    text-align: center;
+    grid-area: title;
+}
+
+.vocabulary__card-list {
+    box-sizing: border-box;
+    grid-area: list;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 10px 10px;
+}
+
+.vocabulary__card-item {
+    margin: 0 0 5px;
+}
+
+.vocabulary__card-item:last-of-type {
+    margin-bottom: 0;
+}
+
+.vocabulary__card-info {
+    box-sizing: border-box;
+    grid-area: item;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 10px 10px;
+}

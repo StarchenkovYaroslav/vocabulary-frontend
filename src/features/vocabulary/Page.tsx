@@ -1,9 +1,11 @@
 import React from 'react'
-import { Vocabulary } from './components'
+import { Vocabulary, Layout } from './components'
 
 const Page = () => {
   return (
-    <Vocabulary />
+    <Layout>
+      <Vocabulary />
+    </Layout>
   )
 }
 
