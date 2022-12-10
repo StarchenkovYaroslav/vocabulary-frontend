@@ -1,0 +1,18 @@
+.card-form {
+    box-sizing: border-box;
+    box-shadow: 0 9px 8px -10px grey;
+    display: flex;
+    grid-area: card-form;
+    padding: 0 0 20px;
+}
+
+.card-form__input {
+    box-shadow: 0 9px 8px -13px grey;
+    margin: 0 10px 0 0;
+}
+
+.card-form__button {
+    box-shadow: 0 9px 8px -13px grey;
+    font-size: 20px;
+    line-height: 1;
+}

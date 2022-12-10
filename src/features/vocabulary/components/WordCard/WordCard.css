@@ -1,6 +1,7 @@
 .card {
-    border: 1px solid darkgrey;
+    border: 1px solid #d9d9d9;
     border-radius: 8px;
+    box-shadow: 0 9px 8px -13px grey;
     cursor: pointer;
     padding: 5px;
     transition: all .2s;
@@ -8,13 +9,13 @@
 
 .card:hover {
     border-color: transparent;
-    background-color: rgba(12, 36, 247, 0.3);
-    transform: scale(1.02);
+    background-color: rgba(64, 150, 255, 0.3);
+    transform: scale(.98);
 }
 
 .card_selected {
-    background-color: rgba(12, 36, 247, 0.1);
-    border: 1px solid #0c24f7;
+    background-color: rgba(64, 150, 255, 0.1);
+    border: 1px solid #4096ff;
 }
 
 .card__title {

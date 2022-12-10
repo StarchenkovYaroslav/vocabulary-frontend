@@ -7,12 +7,21 @@ export const vocabularyApi = createApi({
     baseUrl: 'http://localhost:3001',
   }),
   endpoints: build => ({
+    // TODO: type query arg
     getVocabulary: build.query<IVocabulary, any>({
       query: (id: string) => ({
         url: `vocabularies/${id}`,
-      })
+      }),
     }),
+    // TODO: type
+    addCard: build.mutation<any, any>({
+      query: (body: { wordName: string, vocabularyId: string }) => ({
+        url: 'cards',
+        method: 'POST',
+        body,
+      })
+    })
   }),
 })
 
-export const { useGetVocabularyQuery } = vocabularyApi
+export const { useGetVocabularyQuery, useAddCardMutation } = vocabularyApi

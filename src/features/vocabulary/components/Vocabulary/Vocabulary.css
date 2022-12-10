@@ -1,12 +1,15 @@
 .vocabulary {
     box-sizing: border-box;
     display: grid;
+    column-gap: 10px;
     grid-template-areas:
         "title title"
+        "card-form item"
         "list item";
     grid-template-columns: 1fr 1.5fr;
     height: 100vh;
     overflow: hidden;
+    padding: 0 20px 0;
 }
 
 .vocabulary__title {
@@ -19,7 +22,6 @@
     grid-area: list;
     height: 100%;
     overflow-y: auto;
-    padding: 0 10px 10px;
 }
 
 .vocabulary__card-item {
@@ -35,5 +37,5 @@
     grid-area: item;
     height: 100%;
     overflow-y: auto;
-    padding: 0 10px 10px;
+    /*padding: 0 10px 10px;*/
 }
