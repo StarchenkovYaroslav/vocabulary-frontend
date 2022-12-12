@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+import { QueryStatus } from '@reduxjs/toolkit/query'
+import { message } from 'antd'
 import { useAddCardMutation, useGetVocabularyQuery } from '../../../../store/api'
-import { WordCard } from '../WordCard'
-import './Vocabulary.css'
-import { WordInfo } from '../WordInfo'
 import { List } from '../../../../ui'
-import { ICard } from '../../../../models'
+import { WordCard } from '../WordCard'
+import { WordInfo } from '../WordInfo'
 import { CardForm } from '../CardForm'
+import { ICard } from '../../../../models'
+import './Vocabulary.css'
 
 // TODO: handle hardcore
 const vocabularyId = '6371617f94613befa4ca49a2'
@@ -14,12 +16,14 @@ const Vocabulary: FC = () => {
   const [selectedCardId, setSelectedCardId] = useState<string>('')
 
   const {
-    isLoading,
-    isError,
+    isLoading: isVocabularyLoading,
+    isError: isVocabularyError,
     data: vocabulary,
   } = useGetVocabularyQuery(vocabularyId)
 
-  const [addCard] = useAddCardMutation()
+  const [addCard, { status }] = useAddCardMutation()
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   const selectedCard = vocabulary
     ? vocabulary.cards.find(card => card._id === selectedCardId)
@@ -32,36 +36,51 @@ const Vocabulary: FC = () => {
   // TODO: type data
   const handleAddCard = async (data: { wordName: string }) => {
     await addCard({ vocabularyId, ...data })
-    alert('Добавлено')
   }
 
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Error occurred</div>
+  const showSuccessMessage = () => {
+    messageApi.info('Дабавлено')
+  }
+
+  const showErrorMessage = () => {
+    messageApi.error('Ошибка')
+  }
+
+  useEffect(() => {
+    if (status === QueryStatus.fulfilled) showSuccessMessage()
+    if (status === QueryStatus.rejected) showErrorMessage()
+  }, [status])
+
+  if (isVocabularyLoading) return <div>Loading...</div>
+  if (isVocabularyError) return <div>Error occurred</div>
 
   return (
-    <div className="vocabulary">
-      <h1 className="vocabulary__title">{vocabulary?.name}</h1>
-      <CardForm onSubmit={handleAddCard}/>
-      <List<ICard>
-        data={vocabulary?.cards!}
-        getItemKey={card => card._id}
-        renderItem={card => (
-          <WordCard
-            card={card}
-            isSelected={card._id === selectedCardId}
-            onClick={selectCard}
-          />
-        )}
-        listClassName="vocabulary__card-list"
-        itemClassName="vocabulary__card-item"
-      />
-      <div className="vocabulary__card-info">
-        {selectedCard
-          ? <WordInfo card={selectedCard} />
-          : <div>Слово не выбрано</div>
-        }
+    <>
+      {contextHolder}
+      <div className="vocabulary">
+        <h1 className="vocabulary__title">{vocabulary?.name}</h1>
+        <CardForm onSubmit={handleAddCard}/>
+        <List<ICard>
+          data={vocabulary?.cards!}
+          getItemKey={card => card._id}
+          renderItem={card => (
+            <WordCard
+              card={card}
+              isSelected={card._id === selectedCardId}
+              onClick={selectCard}
+            />
+          )}
+          listClassName="vocabulary__card-list"
+          itemClassName="vocabulary__card-item"
+        />
+        <div className="vocabulary__card-info">
+          {selectedCard
+            ? <WordInfo card={selectedCard} />
+            : <div>Слово не выбрано</div>
+          }
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

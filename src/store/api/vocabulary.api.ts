@@ -8,20 +8,31 @@ export const vocabularyApi = createApi({
   }),
   endpoints: build => ({
     // TODO: type query arg
-    getVocabulary: build.query<IVocabulary, any>({
+    getVocabulary: build.query<IVocabulary, string>({
       query: (id: string) => ({
         url: `vocabularies/${id}`,
       }),
     }),
     // TODO: type
-    addCard: build.mutation<any, any>({
-      query: (body: { wordName: string, vocabularyId: string }) => ({
+    addCard: build.mutation<any, { wordName: string, vocabularyId: string }>({
+      query: (body) => ({
         url: 'cards',
         method: 'POST',
         body,
       })
+    }),
+    // TODO: type
+    removeCard: build.mutation<any, string>({
+      query: (id) => ({
+        url: `cards/${id}`,
+        method: 'DELETE',
+      }),
     })
   }),
 })
 
-export const { useGetVocabularyQuery, useAddCardMutation } = vocabularyApi
+export const {
+  useGetVocabularyQuery,
+  useAddCardMutation,
+  useRemoveCardMutation,
+} = vocabularyApi
