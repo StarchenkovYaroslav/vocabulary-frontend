@@ -38,17 +38,17 @@ const Vocabulary: FC = () => {
     await addCard({ vocabularyId, ...data })
   }
 
-  const showSuccessMessage = () => {
-    messageApi.info('Дабавлено')
+  const showSuccessMessage = (message: string) => {
+    messageApi.info(message)
   }
 
-  const showErrorMessage = () => {
-    messageApi.error('Ошибка')
+  const showErrorMessage = (message: string) => {
+    messageApi.error(message)
   }
 
   useEffect(() => {
-    if (status === QueryStatus.fulfilled) showSuccessMessage()
-    if (status === QueryStatus.rejected) showErrorMessage()
+    if (status === QueryStatus.fulfilled) showSuccessMessage('Дабавлено')
+    if (status === QueryStatus.rejected) showErrorMessage('Ошибка')
   }, [status])
 
   if (isVocabularyLoading) return <div>Loading...</div>
@@ -68,6 +68,8 @@ const Vocabulary: FC = () => {
               card={card}
               isSelected={card._id === selectedCardId}
               onClick={selectCard}
+              onShowSuccessMessage={showSuccessMessage}
+              onShowErrorMessage={showErrorMessage}
             />
           )}
           listClassName="vocabulary__card-list"

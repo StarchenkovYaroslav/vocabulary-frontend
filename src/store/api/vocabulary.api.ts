@@ -6,12 +6,14 @@ export const vocabularyApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3001',
   }),
+  tagTypes: ['Vocabulary'],
   endpoints: build => ({
     // TODO: type query arg
     getVocabulary: build.query<IVocabulary, string>({
       query: (id: string) => ({
         url: `vocabularies/${id}`,
       }),
+      providesTags: ['Vocabulary'],
     }),
     // TODO: type
     addCard: build.mutation<any, { wordName: string, vocabularyId: string }>({
@@ -19,7 +21,8 @@ export const vocabularyApi = createApi({
         url: 'cards',
         method: 'POST',
         body,
-      })
+      }),
+      invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
     removeCard: build.mutation<any, string>({
@@ -27,6 +30,7 @@ export const vocabularyApi = createApi({
         url: `cards/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     })
   }),
 })

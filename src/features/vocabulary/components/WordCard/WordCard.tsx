@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { Button, Popconfirm, message } from 'antd'
+import { Button, Popconfirm } from 'antd'
 import { DeleteTwoTone } from '@ant-design/icons'
 import { ICard } from '../../../../models'
 import './WordCard.css'
@@ -10,11 +10,18 @@ interface Props {
   card: ICard
   isSelected: boolean
   onClick: (cardId: string) => void
+  onShowSuccessMessage: (message: string) => void
+  onShowErrorMessage: (message: string) => void
 }
 
-const WordCard: FC<Props> = ({ card, isSelected, onClick }) => {
+const WordCard: FC<Props> =({
+ card,
+ isSelected,
+ onClick,
+ onShowSuccessMessage,
+ onShowErrorMessage,
+}) => {
   const [removeCard, { isLoading, status }] = useRemoveCardMutation()
-  const [messageApi, contextHolder] = message.useMessage();
 
   let cardClassName = 'card'
   if (isSelected) cardClassName += ' card_selected'
@@ -34,63 +41,51 @@ const WordCard: FC<Props> = ({ card, isSelected, onClick }) => {
     removeCard(card._id)
   }
 
-  const showSuccessMessage = () => {
-    messageApi.info('Удалено')
-  }
-
-  const showErrorMessage = () => {
-    messageApi.error('Ошибка')
-  }
-
   useEffect(() => {
-    if (status === QueryStatus.fulfilled) showSuccessMessage()
-    if (status === QueryStatus.rejected) showErrorMessage()
+    if (status === QueryStatus.fulfilled) onShowSuccessMessage('Удалено')
+    if (status === QueryStatus.rejected) onShowErrorMessage('Ошибка')
   }, [status])
 
   return (
-    <>
-      {contextHolder}
+    <div
+      className={cardClassName}
+      onClick={handleClick}
 
-      <div
-        className={cardClassName}
-        onClick={handleClick}
+    >
+      <Popconfirm
+        title="Удалить?"
+        cancelText="Нет"
+        okText="Да"
+        placement="right"
 
+        disabled={isLoading}
+        cancelButtonProps={{
+          disabled: isLoading,
+        }}
+        okButtonProps={{
+          disabled: isLoading,
+        }}
+        onCancel={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
       >
-        <Popconfirm
-          title="Удалить?"
-          cancelText="Нет"
-          okText="Да"
-          placement="right"
+        <Button
+          className="card__delete-button"
+          htmlType="button"
+          icon={
+            <DeleteTwoTone
+              twoToneColor="red"
+              style={{ fontSize: '16px' }}
+            />
+          }
 
-          disabled={isLoading}
-          cancelButtonProps={{
-            disabled: isLoading,
-          }}
-          okButtonProps={{
-            disabled: isLoading,
-          }}
-          onCancel={handleDeleteCancel}
-          onConfirm={handleDeleteConfirm}
-        >
-          <Button
-            className="card__delete-button"
-            htmlType="button"
-            icon={
-              <DeleteTwoTone
-                twoToneColor="red"
-                style={{ fontSize: '16px' }}
-              />
-            }
-
-            onClick={handleDeleteClick}
-            loading={isLoading}
-          />
-        </Popconfirm>
-        <div className="card__title">{card.word.name}</div>
-        <div className="card__description">{`${card.meanings.length} знач.`}</div>
-      </div>
-    </>
-)
+          onClick={handleDeleteClick}
+          loading={isLoading}
+        />
+      </Popconfirm>
+      <div className="card__title">{card.word.name}</div>
+      <div className="card__description">{`${card.meanings.length} знач.`}</div>
+    </div>
+  )
 }
 
 export default WordCard
