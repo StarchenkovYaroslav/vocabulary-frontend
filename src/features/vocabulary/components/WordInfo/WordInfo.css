@@ -1,17 +1,22 @@
 .word-info__title {
     font-size: 30px;
     font-weight: bold;
-    margin: 0 0 15px;
+    margin: 0 0 6px;
 }
 
 .word-info__meaning {
     margin: 0 0 10px;
 }
 
+.word-info__meaning-title-container {
+    display: flex;
+    margin: 0 0 10px;
+}
+
 .word-info__meaning-title {
     font-size: 20px;
     font-weight: bold;
-    margin: 0 0 10px;
+    margin: 0;
 }
 
 .word-info__translation-list {

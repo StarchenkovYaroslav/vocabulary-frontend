@@ -1,0 +1,14 @@
+.add-meaning-form {
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 0 20px;
+    width: 50%;
+}
+
+.add-meaning-form__input {
+    border-radius: 6px 0 0 6px;
+}
+
+.add-meaning-form__button {
+    border-radius: 0 6px 6px 0;
+}

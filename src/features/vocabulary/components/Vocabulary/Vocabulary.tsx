@@ -59,7 +59,7 @@ const Vocabulary: FC = () => {
       {contextHolder}
       <div className="vocabulary">
         <h1 className="vocabulary__title">{vocabulary?.name}</h1>
-        <CardForm onSubmit={handleAddCard}/>
+        <CardForm onSubmit={handleAddCard} />
         <List<ICard>
           data={vocabulary?.cards!}
           getItemKey={card => card._id}
@@ -77,7 +77,11 @@ const Vocabulary: FC = () => {
         />
         <div className="vocabulary__card-info">
           {selectedCard
-            ? <WordInfo card={selectedCard} />
+            ? <WordInfo
+                card={selectedCard}
+                onShowSuccessMessage={showSuccessMessage}
+                onShowErrorMessage={showErrorMessage}
+              />
             : <div>Слово не выбрано</div>
           }
         </div>

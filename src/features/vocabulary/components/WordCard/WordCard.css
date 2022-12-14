@@ -34,16 +34,6 @@
 
 .card__delete-button {
     align-self: start;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
     grid-area: card__delete-button;
-    height: auto;
     justify-self: end;
-    padding: 0;
-    width: auto;
-}
-
-.card__delete-button:hover {
-    transform: scale(0.9);
 }
