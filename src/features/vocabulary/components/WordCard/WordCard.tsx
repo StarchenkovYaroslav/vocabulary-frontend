@@ -46,6 +46,7 @@ const WordCard: FC<Props> =({
         buttonClassName="card__delete-button"
         popConfirmTitle="Удалить слово из словаря?"
         popConfirmPlacement="right"
+        size={16}
       />
       <div className="card__title">{card.word.name}</div>
       <div className="card__description">{`${card.meanings.length} знач.`}</div>

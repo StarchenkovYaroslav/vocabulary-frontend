@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { DeleteTwoTone } from '@ant-design/icons'
+import { DeleteOutlined } from '@ant-design/icons'
 import { Button, Popconfirm } from 'antd'
 import { ButtonProps } from 'antd/es/button/button'
 import { PopconfirmProps } from 'antd/es/popconfirm'
@@ -10,7 +10,8 @@ interface Props {
   popConfirmTitle: PopconfirmProps['title']
   popConfirmPlacement: PopconfirmProps['placement']
   isDeleting: boolean,
-  onDelete: () => void
+  onDelete: () => void,
+  size?: number
 }
 
 const DeleteButton: FC<Props> = ({
@@ -19,6 +20,7 @@ const DeleteButton: FC<Props> = ({
   popConfirmPlacement,
   isDeleting,
   onDelete,
+  size,
 }) => {
   let finalClassName = 'delete-button'
   if (buttonClassName) finalClassName += ` ${buttonClassName}`
@@ -56,10 +58,11 @@ const DeleteButton: FC<Props> = ({
       <Button
         className={finalClassName}
         htmlType="button"
+        shape="default"
+        type="ghost"
         icon={
-          <DeleteTwoTone
-            twoToneColor="red"
-            style={{ fontSize: '16px' }}
+          <DeleteOutlined
+            style={{ fontSize: size || 14 }}
           />
         }
         loading={isDeleting}

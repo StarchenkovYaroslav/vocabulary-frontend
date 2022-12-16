@@ -39,7 +39,7 @@ const Translation: FC<Props> = ({
     <div className="word-info__translation">
       <p className="word-info__translation-name">{translation.name}</p>
       <DeleteButton
-        popConfirmTitle="Удалить значение?"
+        popConfirmTitle="Удалить перевод?"
         popConfirmPlacement="top"
         isDeleting={isTranslationDeleting}
         onDelete={handleRemoveTranslation}

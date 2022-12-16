@@ -1,5 +1,7 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { QueryStatus } from '@reduxjs/toolkit/query'
+import { Button } from 'antd'
+import { PlusCircleOutlined } from '@ant-design/icons'
 import { DeleteButton } from '../DeleteButton'
 import { Translation } from '../Translation'
 import { List } from '../../../../ui'
@@ -20,6 +22,11 @@ const Meaning: FC<Props> = ({
   onShowSuccessMessage,
   onShowErrorMessage
 }) => {
+  const [
+    isAddTranslationFormVisible,
+    setIsAddTranslationFormVisible
+  ] = useState<boolean>(false)
+
   const [
     addTranslation,
     {
@@ -42,6 +49,10 @@ const Meaning: FC<Props> = ({
 
   const handleRemoveMeaning = () => removeMeaning(meaning._id)
 
+  const switchAddTranslationForm = () => {
+    setIsAddTranslationFormVisible(prevState => !prevState)
+  }
+
   useEffect(() => {
     if (meaningDeletingStatus === QueryStatus.fulfilled) onShowSuccessMessage('Удалено')
     if (meaningDeletingStatus === QueryStatus.rejected) onShowErrorMessage('Ошибка')
@@ -56,6 +67,18 @@ const Meaning: FC<Props> = ({
     <div className="word-info__meaning">
       <div className="word-info__meaning-title-container">
         <h3 className="word-info__meaning-title">{meaning.name}</h3>
+        <Button
+          htmlType="button"
+          onClick={switchAddTranslationForm}
+          shape="default"
+          type="ghost"
+          icon={
+            <PlusCircleOutlined
+              style={{ fontSize: '14px' }}
+            />
+          }
+          className="word-info__add-meaning-button"
+        />
         <DeleteButton
           isDeleting={isMeaningDeleting}
           onDelete={handleRemoveMeaning}
@@ -63,7 +86,10 @@ const Meaning: FC<Props> = ({
           popConfirmPlacement="top"
         />
       </div>
-      <AddTranslationForm onSubmit={handleAddTranslation} />
+      <AddTranslationForm
+        onSubmit={handleAddTranslation}
+        isVisible={isAddTranslationFormVisible}
+      />
       <div className="word-info__translation-list">
         <List<ITranslation>
           data={meaning.translations}

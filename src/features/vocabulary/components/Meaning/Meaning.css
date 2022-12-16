@@ -13,6 +13,20 @@
     margin: 0;
 }
 
+.word-info__add-meaning-button {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: black;
+    height: auto;
+    padding: 0;
+    width: auto;
+}
+
+.word-info__add-meaning-button:hover {
+    color: green;
+}
+
 .word-info__translation-list {
     padding: 0 0 0 10px;
 }

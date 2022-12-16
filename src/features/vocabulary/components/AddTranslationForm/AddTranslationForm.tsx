@@ -4,11 +4,15 @@ import './AddTranslationForm.css'
 
 interface Props {
   onSubmit: (args: any) => void
+  isVisible: boolean
 }
 
-const AddTranslationForm: FC<Props> = ({ onSubmit }) => {
+const AddTranslationForm: FC<Props> = ({ onSubmit, isVisible }) => {
+  let finalClassName = 'add-translation-form'
+  if (isVisible) finalClassName += ' add-translation-form_visible'
+
   return (
-    <Form className="add-translation-form" onSubmit={onSubmit}>
+    <Form className={finalClassName} onSubmit={onSubmit}>
       <Input
         className="add-translation-form__input"
         name="translationName"
