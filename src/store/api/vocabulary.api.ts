@@ -48,6 +48,24 @@ export const vocabularyApi = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
+    }),
+    // TODO: type
+    removeTranslation: build.mutation<any, { meaningId: string, translationId: string }>({
+      query: ({ meaningId, ...body }) => ({
+        url: `meanings/${meaningId}/translations`,
+        method: 'DELETE',
+        body,
+      }),
+      invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
+    }),
+    // TODO: type
+    addTranslation: build.mutation<any, { meaningId: string, translationName: string }>({
+      query: ({ meaningId, ...body }) => ({
+        url: `meanings/${meaningId}/translations`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     })
   }),
 })
@@ -58,4 +76,6 @@ export const {
   useRemoveCardMutation,
   useCreateMeaningMutation,
   useRemoveMeaningMutation,
+  useRemoveTranslationMutation,
+  useAddTranslationMutation,
 } = vocabularyApi

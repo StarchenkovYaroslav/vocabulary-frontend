@@ -1,0 +1,14 @@
+.add-translation-form {
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 0 6px;
+    width: 50%;
+}
+
+.add-translation-form__input {
+    border-radius: 6px 0 0 6px;
+}
+
+.add-translation-form__button {
+    border-radius: 0 6px 6px 0;
+}

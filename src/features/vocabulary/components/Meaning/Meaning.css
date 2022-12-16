@@ -1,10 +1,10 @@
 .word-info__meaning {
-    margin: 0 0 10px;
+    margin: 0 0 15px;
 }
 
 .word-info__meaning-title-container {
     display: flex;
-    margin: 0 0 10px;
+    margin: 0 0 6px;
 }
 
 .word-info__meaning-title {
@@ -23,8 +23,4 @@
 
 .word-info__translation-item:last-of-type {
     margin-bottom: 0;
-}
-
-.word-info__translation-name {
-    font-size: 20px;
 }

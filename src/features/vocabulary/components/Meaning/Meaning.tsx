@@ -1,10 +1,12 @@
 import React, { FC, useEffect } from 'react'
 import { QueryStatus } from '@reduxjs/toolkit/query'
 import { DeleteButton } from '../DeleteButton'
+import { Translation } from '../Translation'
 import { List } from '../../../../ui'
+import { AddTranslationForm } from '../AddTranslationForm'
 import { ITranslation } from '../../../../models/ITranslation'
 import { IMeaning } from '../../../../models/IMeaning'
-import { useRemoveMeaningMutation } from '../../../../store/api'
+import { useAddTranslationMutation, useRemoveMeaningMutation } from '../../../../store/api'
 import './Meaning.css'
 
 interface Props {
@@ -19,6 +21,13 @@ const Meaning: FC<Props> = ({
   onShowErrorMessage
 }) => {
   const [
+    addTranslation,
+    {
+      status: translationAddingStatus,
+    }
+  ] = useAddTranslationMutation()
+
+  const [
     removeMeaning,
     {
       isLoading: isMeaningDeleting,
@@ -26,12 +35,22 @@ const Meaning: FC<Props> = ({
     }
   ] = useRemoveMeaningMutation()
 
+  // TODO: type
+  const handleAddTranslation = async (data: { translationName: string }) => {
+    await addTranslation({ ...data, meaningId: meaning._id })
+  }
+
   const handleRemoveMeaning = () => removeMeaning(meaning._id)
 
   useEffect(() => {
     if (meaningDeletingStatus === QueryStatus.fulfilled) onShowSuccessMessage('Удалено')
     if (meaningDeletingStatus === QueryStatus.rejected) onShowErrorMessage('Ошибка')
   }, [meaningDeletingStatus])
+
+  useEffect(() => {
+    if (translationAddingStatus === QueryStatus.fulfilled) onShowSuccessMessage('Добавлено')
+    if (translationAddingStatus === QueryStatus.rejected) onShowErrorMessage('Ошибка')
+  }, [translationAddingStatus])
 
   return (
     <div className="word-info__meaning">
@@ -44,12 +63,18 @@ const Meaning: FC<Props> = ({
           popConfirmPlacement="top"
         />
       </div>
+      <AddTranslationForm onSubmit={handleAddTranslation} />
       <div className="word-info__translation-list">
         <List<ITranslation>
           data={meaning.translations}
           getItemKey={translation => translation._id}
           renderItem={translation => (
-            <div className="word-info__translation-name">{translation.name}</div>
+            <Translation
+              translation={translation}
+              meaningId={meaning._id}
+              onShowSuccessMessage={onShowSuccessMessage}
+              onShowErrorMessage={onShowErrorMessage}
+            />
           )}
           itemClassName="word-info__translation-item"
         />

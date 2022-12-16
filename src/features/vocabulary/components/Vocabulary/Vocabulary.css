@@ -1,12 +1,12 @@
 .vocabulary {
     box-sizing: border-box;
     display: grid;
-    column-gap: 10px;
+    column-gap: 30px;
     grid-template-areas:
         "title title"
         "card-form item"
         "list item";
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1.3fr;
     height: 100vh;
     overflow: hidden;
     padding: 0 20px 0;
