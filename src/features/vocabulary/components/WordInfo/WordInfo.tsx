@@ -29,19 +29,23 @@ const WordInfo: FC<Props> = ({ card, onShowErrorMessage, onShowSuccessMessage })
 
   return (
     <div className="word-info">
-      <h2 className="word-info__title">{card.word.name}</h2>
-      <AddMeaningForm onSubmit={handleAddMeaning} />
-      <List<IMeaning>
-        data={card.meanings}
-        getItemKey={meaning => meaning._id}
-        renderItem={meaning => (
-          <Meaning
-            meaning={meaning}
-            onShowSuccessMessage={onShowSuccessMessage}
-            onShowErrorMessage={onShowErrorMessage}
-          />
-        )}
-      />
+      <div className="word-info__header">
+        <h2 className="word-info__title">{card.word.name}</h2>
+        <AddMeaningForm onSubmit={handleAddMeaning} />
+      </div>
+      <div className="word-info__meanings">
+        <List<IMeaning>
+          data={card.meanings}
+          getItemKey={meaning => meaning._id}
+          renderItem={meaning => (
+            <Meaning
+              meaning={meaning}
+              onShowSuccessMessage={onShowSuccessMessage}
+              onShowErrorMessage={onShowErrorMessage}
+            />
+          )}
+        />
+      </div>
     </div>
   )
 }

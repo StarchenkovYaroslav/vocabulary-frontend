@@ -59,23 +59,25 @@ const Vocabulary: FC = () => {
       {contextHolder}
       <div className="vocabulary">
         <h1 className="vocabulary__title">{vocabulary?.name}</h1>
-        <CardForm onSubmit={handleAddCard} />
-        <List<ICard>
-          data={vocabulary?.cards!}
-          getItemKey={card => card._id}
-          renderItem={card => (
-            <WordCard
-              card={card}
-              isSelected={card._id === selectedCardId}
-              onClick={selectCard}
-              onShowSuccessMessage={showSuccessMessage}
-              onShowErrorMessage={showErrorMessage}
-            />
-          )}
-          listClassName="vocabulary__card-list"
-          itemClassName="vocabulary__card-item"
-        />
-        <div className="vocabulary__card-info">
+        <div className="vocabulary__left">
+          <CardForm onSubmit={handleAddCard} />
+          <List<ICard>
+            data={vocabulary?.cards!}
+            getItemKey={card => card._id}
+            renderItem={card => (
+              <WordCard
+                card={card}
+                isSelected={card._id === selectedCardId}
+                onClick={selectCard}
+                onShowSuccessMessage={showSuccessMessage}
+                onShowErrorMessage={showErrorMessage}
+              />
+            )}
+            listClassName="vocabulary__card-list"
+            itemClassName="vocabulary__card-item"
+          />
+        </div>
+        <div className="vocabulary__right">
           {selectedCard
             ? <WordInfo
                 card={selectedCard}

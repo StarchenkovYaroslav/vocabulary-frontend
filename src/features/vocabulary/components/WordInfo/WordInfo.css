@@ -1,5 +1,29 @@
+.word-info {
+    align-content: start;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas:
+        "word-info__header"
+        "word-info__meanings";
+    height: 100%;
+    overflow: hidden;
+}
+
+.word-info__header {
+    box-shadow: 0 9px 8px -10px grey;
+    grid-area: word-info__header;
+    padding: 0 10px 20px;
+}
+
 .word-info__title {
     font-size: 30px;
     font-weight: bold;
     margin: 0 0 6px;
+}
+
+.word-info__meanings {
+    grid-area: word-info__meanings;
+    height: 100%;
+    overflow-y: auto;
+    padding: 10px 10px 0;
 }
