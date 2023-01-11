@@ -1,10 +1,13 @@
 .card-form {
     align-self: start;
     box-sizing: border-box;
-    box-shadow: 0 9px 8px -10px grey;
     display: flex;
     grid-area: card-form;
     padding: 0 0 20px;
+}
+
+.card-form_bordered {
+    box-shadow: 0 9px 8px -10px grey;
 }
 
 .card-form__input {

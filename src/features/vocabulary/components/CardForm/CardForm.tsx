@@ -4,11 +4,15 @@ import './CardForm.css'
 
 interface Props {
   onSubmit: (args: any) => void
+  isBordered: boolean
 }
 
-const CardForm: FC<Props> = ({ onSubmit }) => {
+const CardForm: FC<Props> = ({ onSubmit, isBordered }) => {
+  let className = 'card-form'
+  if (isBordered) className += ' card-form_bordered'
+
   return (
-    <Form className="card-form" onSubmit={onSubmit}>
+    <Form className={className} onSubmit={onSubmit}>
       <Input
         name="wordName"
         type="text"

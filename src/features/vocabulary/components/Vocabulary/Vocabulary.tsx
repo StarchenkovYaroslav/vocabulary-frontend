@@ -14,6 +14,7 @@ const vocabularyId = '6371617f94613befa4ca49a2'
 
 const Vocabulary: FC = () => {
   const [selectedCardId, setSelectedCardId] = useState<string>('')
+  const [areCardsScrolled, setAreCardsScrolled] = useState<boolean>(false)
 
   const {
     isLoading: isVocabularyLoading,
@@ -46,6 +47,11 @@ const Vocabulary: FC = () => {
     messageApi.error(message)
   }
 
+  const handleCardsScroll = (evt: React.UIEvent<HTMLUListElement>) => {
+    if (evt.currentTarget.scrollTop > 0) setAreCardsScrolled(true)
+    else setAreCardsScrolled(false)
+  }
+
   useEffect(() => {
     if (status === QueryStatus.fulfilled) showSuccessMessage('Дабавлено')
     if (status === QueryStatus.rejected) showErrorMessage('Ошибка')
@@ -60,10 +66,11 @@ const Vocabulary: FC = () => {
       <div className="vocabulary">
         <h1 className="vocabulary__title">{vocabulary?.name}</h1>
         <div className="vocabulary__left">
-          <CardForm onSubmit={handleAddCard} />
+          <CardForm isBordered={areCardsScrolled} onSubmit={handleAddCard} />
           <List<ICard>
             data={vocabulary?.cards!}
             getItemKey={card => card._id}
+            onScroll={handleCardsScroll}
             renderItem={card => (
               <WordCard
                 card={card}
