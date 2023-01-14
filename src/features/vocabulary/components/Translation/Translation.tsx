@@ -1,22 +1,19 @@
 import React, { FC, useEffect } from 'react'
+import { QueryStatus } from '@reduxjs/toolkit/query'
 import { ITranslation } from '../../../../models/ITranslation'
-import './Translation.css'
 import { DeleteButton } from '../DeleteButton'
 import { useRemoveTranslationMutation } from '../../../../store/api'
-import { QueryStatus } from '@reduxjs/toolkit/query'
+import { useTypedSelector } from '../../../../hooks'
+import './Translation.css'
 
 interface Props {
   translation: ITranslation
   meaningId: string
-  onShowSuccessMessage: (message: string) => void
-  onShowErrorMessage: (message: string) => void
 }
 
 const Translation: FC<Props> = ({
   translation,
   meaningId,
-  onShowSuccessMessage,
-  onShowErrorMessage,
 }) => {
   const [
     removeTranslation,
@@ -26,13 +23,15 @@ const Translation: FC<Props> = ({
     }
   ] = useRemoveTranslationMutation()
 
+  const { message } = useTypedSelector(state => state.message)
+
   useEffect(() => {
-    if (translationDeletingStatus === QueryStatus.fulfilled) onShowSuccessMessage('Удалено')
-    if (translationDeletingStatus === QueryStatus.rejected) onShowErrorMessage('Ошибка')
+    if (translationDeletingStatus === QueryStatus.fulfilled) message?.success('Удалено')
+    if (translationDeletingStatus === QueryStatus.rejected) message?.error('Ошибка')
   }, [translationDeletingStatus])
 
   const handleRemoveTranslation = () => {
-    removeTranslation({meaningId: meaningId, translationId: translation._id })
+    removeTranslation({ meaningId: meaningId, translationId: translation._id })
   }
 
   return (

@@ -7,21 +7,22 @@ import { AddMeaningForm } from '../AddMeaningForm'
 import { Meaning } from '../Meaning'
 import { useCreateMeaningMutation } from '../../../../store/api'
 import './WordInfo.css'
+import { useTypedSelector } from '../../../../hooks'
 
 interface Props {
   card: ICard
-  onShowSuccessMessage: (message: string) => void
-  onShowErrorMessage: (message: string) => void
 }
 
-const WordInfo: FC<Props> = ({ card, onShowErrorMessage, onShowSuccessMessage }) => {
-  const [createMeaning, { status: meaningCreationStatus }] = useCreateMeaningMutation()
-
+const WordInfo: FC<Props> = ({ card }) => {
   const [areMeaningsScrolled, setAreMeaningsScrolled] = useState<boolean>(false)
 
+  const { message } = useTypedSelector(state => state.message)
+
+  const [createMeaning, { status: meaningCreationStatus }] = useCreateMeaningMutation()
+
   useEffect(() => {
-    if (meaningCreationStatus === QueryStatus.fulfilled) onShowSuccessMessage('Добавлено')
-    if (meaningCreationStatus === QueryStatus.rejected) onShowErrorMessage('Ошибка')
+    if (meaningCreationStatus === QueryStatus.fulfilled) message?.success('Добавлено')
+    if (meaningCreationStatus === QueryStatus.rejected) message?.error('Ошибка')
   }, [meaningCreationStatus])
 
   // TODO: type data
@@ -48,11 +49,7 @@ const WordInfo: FC<Props> = ({ card, onShowErrorMessage, onShowSuccessMessage })
         onScroll={handleMeaningsScroll}
         getItemKey={meaning => meaning._id}
         renderItem={meaning => (
-          <Meaning
-            meaning={meaning}
-            onShowSuccessMessage={onShowSuccessMessage}
-            onShowErrorMessage={onShowErrorMessage}
-          />
+          <Meaning meaning={meaning} />
         )}
         listClassName="word-info__meanings"
       />

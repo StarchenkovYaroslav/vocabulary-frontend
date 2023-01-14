@@ -9,23 +9,22 @@ import { AddTranslationForm } from '../AddTranslationForm'
 import { ITranslation } from '../../../../models/ITranslation'
 import { IMeaning } from '../../../../models/IMeaning'
 import { useAddTranslationMutation, useRemoveMeaningMutation } from '../../../../store/api'
+import { useTypedSelector } from '../../../../hooks'
 import './Meaning.css'
 
 interface Props {
   meaning: IMeaning
-  onShowSuccessMessage: (message: string) => void
-  onShowErrorMessage: (message: string) => void
 }
 
 const Meaning: FC<Props> = ({
   meaning,
-  onShowSuccessMessage,
-  onShowErrorMessage
 }) => {
   const [
     isAddTranslationFormVisible,
     setIsAddTranslationFormVisible
   ] = useState<boolean>(false)
+
+  const { message } = useTypedSelector(state => state.message)
 
   const [
     addTranslation,
@@ -54,13 +53,13 @@ const Meaning: FC<Props> = ({
   }
 
   useEffect(() => {
-    if (meaningDeletingStatus === QueryStatus.fulfilled) onShowSuccessMessage('Удалено')
-    if (meaningDeletingStatus === QueryStatus.rejected) onShowErrorMessage('Ошибка')
+    if (meaningDeletingStatus === QueryStatus.fulfilled) message?.success('Удалено')
+    if (meaningDeletingStatus === QueryStatus.rejected) message?.error('Ошибка')
   }, [meaningDeletingStatus])
 
   useEffect(() => {
-    if (translationAddingStatus === QueryStatus.fulfilled) onShowSuccessMessage('Добавлено')
-    if (translationAddingStatus === QueryStatus.rejected) onShowErrorMessage('Ошибка')
+    if (translationAddingStatus === QueryStatus.fulfilled) message?.success('Добавлено')
+    if (translationAddingStatus === QueryStatus.rejected) message?.error('Ошибка')
   }, [translationAddingStatus])
 
   return (
@@ -98,8 +97,6 @@ const Meaning: FC<Props> = ({
             <Translation
               translation={translation}
               meaningId={meaning._id}
-              onShowSuccessMessage={onShowSuccessMessage}
-              onShowErrorMessage={onShowErrorMessage}
             />
           )}
           itemClassName="word-info__translation-item"

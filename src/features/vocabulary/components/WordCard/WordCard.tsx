@@ -4,23 +4,22 @@ import { useRemoveCardMutation } from '../../../../store/api'
 import { QueryStatus } from '@reduxjs/toolkit/query'
 import { DeleteButton } from '../DeleteButton'
 import './WordCard.css'
+import { useTypedSelector } from '../../../../hooks'
 
 interface Props {
   card: ICard
   isSelected: boolean
   onClick: (cardId: string) => void
-  onShowSuccessMessage: (message: string) => void
-  onShowErrorMessage: (message: string) => void
 }
 
 const WordCard: FC<Props> =({
  card,
  isSelected,
  onClick,
- onShowSuccessMessage,
- onShowErrorMessage,
 }) => {
   const [removeCard, { isLoading, status }] = useRemoveCardMutation()
+
+  const { message } = useTypedSelector(state => state.message)
 
   let cardClassName = 'card'
   if (isSelected) cardClassName += ' card_selected'
@@ -30,15 +29,14 @@ const WordCard: FC<Props> =({
   const handleDelete = () => removeCard(card._id)
 
   useEffect(() => {
-    if (status === QueryStatus.fulfilled) onShowSuccessMessage('Удалено')
-    if (status === QueryStatus.rejected) onShowErrorMessage('Ошибка')
+    if (status === QueryStatus.fulfilled) message?.success('Удалено')
+    if (status === QueryStatus.rejected) message?.error('Ошибка')
   }, [status])
 
   return (
     <div
       className={cardClassName}
       onClick={handleClick}
-
     >
       <DeleteButton
         isDeleting={isLoading}
