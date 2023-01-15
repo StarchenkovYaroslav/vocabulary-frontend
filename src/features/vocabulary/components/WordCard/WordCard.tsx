@@ -1,10 +1,9 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { ICard } from '../../../../models'
 import { useRemoveCardMutation } from '../../../../store/api'
-import { QueryStatus } from '@reduxjs/toolkit/query'
 import { DeleteButton } from '../DeleteButton'
 import './WordCard.css'
-import { useTypedSelector } from '../../../../hooks'
+import { useFollowSeverStatus } from '../../../../hooks'
 
 interface Props {
   card: ICard
@@ -17,9 +16,13 @@ const WordCard: FC<Props> =({
  isSelected,
  onClick,
 }) => {
-  const [removeCard, { isLoading, status }] = useRemoveCardMutation()
-
-  const { message } = useTypedSelector(state => state.message)
+  const [
+    removeCard,
+    {
+      isLoading: isCardRemoving,
+      status: cardRemovingStatus,
+    }
+  ] = useRemoveCardMutation()
 
   let cardClassName = 'card'
   if (isSelected) cardClassName += ' card_selected'
@@ -28,10 +31,7 @@ const WordCard: FC<Props> =({
 
   const handleDelete = () => removeCard(card._id)
 
-  useEffect(() => {
-    if (status === QueryStatus.fulfilled) message?.success('Удалено')
-    if (status === QueryStatus.rejected) message?.error('Ошибка')
-  }, [status])
+  useFollowSeverStatus({ status: cardRemovingStatus })
 
   return (
     <div
@@ -39,7 +39,7 @@ const WordCard: FC<Props> =({
       onClick={handleClick}
     >
       <DeleteButton
-        isDeleting={isLoading}
+        isDeleting={isCardRemoving}
         onDelete={handleDelete}
         buttonClassName="card__delete-button"
         popConfirmTitle="Удалить слово из словаря?"

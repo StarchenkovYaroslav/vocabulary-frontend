@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
-import { QueryStatus } from '@reduxjs/toolkit/query'
+import React, { FC, useState } from 'react'
 import { Button } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { DeleteButton } from '../DeleteButton'
@@ -9,7 +8,7 @@ import { AddTranslationForm } from '../AddTranslationForm'
 import { ITranslation } from '../../../../models/ITranslation'
 import { IMeaning } from '../../../../models/IMeaning'
 import { useAddTranslationMutation, useRemoveMeaningMutation } from '../../../../store/api'
-import { useTypedSelector } from '../../../../hooks'
+import { useFollowSeverStatus } from '../../../../hooks'
 import './Meaning.css'
 
 interface Props {
@@ -23,8 +22,6 @@ const Meaning: FC<Props> = ({
     isAddTranslationFormVisible,
     setIsAddTranslationFormVisible
   ] = useState<boolean>(false)
-
-  const { message } = useTypedSelector(state => state.message)
 
   const [
     addTranslation,
@@ -52,15 +49,8 @@ const Meaning: FC<Props> = ({
     setIsAddTranslationFormVisible(prevState => !prevState)
   }
 
-  useEffect(() => {
-    if (meaningDeletingStatus === QueryStatus.fulfilled) message?.success('Удалено')
-    if (meaningDeletingStatus === QueryStatus.rejected) message?.error('Ошибка')
-  }, [meaningDeletingStatus])
-
-  useEffect(() => {
-    if (translationAddingStatus === QueryStatus.fulfilled) message?.success('Добавлено')
-    if (translationAddingStatus === QueryStatus.rejected) message?.error('Ошибка')
-  }, [translationAddingStatus])
+  useFollowSeverStatus({ status: meaningDeletingStatus })
+  useFollowSeverStatus({ status: translationAddingStatus })
 
   return (
     <div className="word-info__meaning">

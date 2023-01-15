@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
-import { QueryStatus } from '@reduxjs/toolkit/query'
+import React, { FC, useState } from 'react'
 import { ICard } from '../../../../models'
 import { IMeaning } from '../../../../models/IMeaning'
 import { List } from '../../../../ui'
@@ -7,7 +6,7 @@ import { AddMeaningForm } from '../AddMeaningForm'
 import { Meaning } from '../Meaning'
 import { useCreateMeaningMutation } from '../../../../store/api'
 import './WordInfo.css'
-import { useTypedSelector } from '../../../../hooks'
+import { useFollowSeverStatus } from '../../../../hooks'
 
 interface Props {
   card: ICard
@@ -16,14 +15,9 @@ interface Props {
 const WordInfo: FC<Props> = ({ card }) => {
   const [areMeaningsScrolled, setAreMeaningsScrolled] = useState<boolean>(false)
 
-  const { message } = useTypedSelector(state => state.message)
-
   const [createMeaning, { status: meaningCreationStatus }] = useCreateMeaningMutation()
 
-  useEffect(() => {
-    if (meaningCreationStatus === QueryStatus.fulfilled) message?.success('Добавлено')
-    if (meaningCreationStatus === QueryStatus.rejected) message?.error('Ошибка')
-  }, [meaningCreationStatus])
+  useFollowSeverStatus({ status: meaningCreationStatus })
 
   // TODO: type data
   const handleAddMeaning = async (data: { name: string }) => {

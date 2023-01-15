@@ -1,9 +1,8 @@
-import React, { FC, useEffect } from 'react'
-import { QueryStatus } from '@reduxjs/toolkit/query'
+import React, { FC } from 'react'
 import { ITranslation } from '../../../../models/ITranslation'
 import { DeleteButton } from '../DeleteButton'
 import { useRemoveTranslationMutation } from '../../../../store/api'
-import { useTypedSelector } from '../../../../hooks'
+import { useFollowSeverStatus } from '../../../../hooks'
 import './Translation.css'
 
 interface Props {
@@ -23,12 +22,7 @@ const Translation: FC<Props> = ({
     }
   ] = useRemoveTranslationMutation()
 
-  const { message } = useTypedSelector(state => state.message)
-
-  useEffect(() => {
-    if (translationDeletingStatus === QueryStatus.fulfilled) message?.success('Удалено')
-    if (translationDeletingStatus === QueryStatus.rejected) message?.error('Ошибка')
-  }, [translationDeletingStatus])
+  useFollowSeverStatus({ status: translationDeletingStatus })
 
   const handleRemoveTranslation = () => {
     removeTranslation({ meaningId: meaningId, translationId: translation._id })

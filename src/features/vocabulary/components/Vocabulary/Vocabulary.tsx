@@ -1,12 +1,11 @@
-import React, { FC, useEffect, useState } from 'react'
-import { QueryStatus } from '@reduxjs/toolkit/query'
+import React, { FC, useState } from 'react'
 import { useAddCardMutation, useGetVocabularyQuery } from '../../../../store/api'
 import { List } from '../../../../ui'
 import { WordCard } from '../WordCard'
 import { WordInfo } from '../WordInfo'
 import { CardForm } from '../CardForm'
 import { ICard } from '../../../../models'
-import { useTypedSelector } from '../../../../hooks'
+import { useFollowSeverStatus } from '../../../../hooks'
 import './Vocabulary.css'
 
 // TODO: handle hardcore
@@ -16,15 +15,13 @@ const Vocabulary: FC = () => {
   const [selectedCardId, setSelectedCardId] = useState<string>('')
   const [areCardsScrolled, setAreCardsScrolled] = useState<boolean>(false)
 
-  const { message } = useTypedSelector(state => state.message)
-
   const {
     isLoading: isVocabularyLoading,
     isError: isVocabularyError,
     data: vocabulary,
   } = useGetVocabularyQuery(vocabularyId)
 
-  const [addCard, { status }] = useAddCardMutation()
+  const [addCard, { status: addingCardStatus }] = useAddCardMutation()
 
   const selectedCard = vocabulary
     ? vocabulary.cards.find(card => card._id === selectedCardId)
@@ -44,10 +41,7 @@ const Vocabulary: FC = () => {
     else setAreCardsScrolled(false)
   }
 
-  useEffect(() => {
-    if (status === QueryStatus.fulfilled) message?.success('Дабавлено')
-    if (status === QueryStatus.rejected) message?.error('Ошибка')
-  }, [status])
+  useFollowSeverStatus({ status: addingCardStatus })
 
   if (isVocabularyLoading) return <div>Loading...</div>
   if (isVocabularyError) return <div>Error occurred</div>
