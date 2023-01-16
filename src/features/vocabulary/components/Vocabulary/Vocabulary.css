@@ -13,13 +13,7 @@
 }
 
 .vocabulary__left {
-    align-content: start;
-    display: grid;
-    flex-direction: column;
     grid-area: left;
-    grid-template-areas:
-        "card-form"
-        "card-list";
     height: 100%;
     overflow: hidden;
 }
@@ -27,20 +21,13 @@
 .vocabulary__right {
     grid-area: right;
     height: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 
 .vocabulary__title {
     text-align: center;
     grid-area: title;
-}
-
-.vocabulary__card-list {
-    box-sizing: border-box;
-    grid-area: card-list;
-    height: 100%;
-    overflow-y: auto;
 }
 
 .vocabulary__card-item {
@@ -54,4 +41,12 @@
 .vocabulary__card-info {
     box-sizing: border-box;
     overflow-y: auto;
+}
+
+.vocabulary__cards-header {
+    padding: 0 10px 20px;
+}
+
+.vocabulary__cards-content {
+    padding: 0 10px;
 }

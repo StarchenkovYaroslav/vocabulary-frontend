@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useAddCardMutation, useGetVocabularyQuery } from '../../../../store/api'
-import { List } from '../../../../ui'
+import { List, ScrollableWithHeader } from '../../../../ui'
 import { WordCard } from '../WordCard'
 import { WordInfo } from '../WordInfo'
 import { CardForm } from '../CardForm'
@@ -13,7 +13,6 @@ const vocabularyId = '6371617f94613befa4ca49a2'
 
 const Vocabulary: FC = () => {
   const [selectedCardId, setSelectedCardId] = useState<string>('')
-  const [areCardsScrolled, setAreCardsScrolled] = useState<boolean>(false)
 
   const {
     isLoading: isVocabularyLoading,
@@ -36,11 +35,6 @@ const Vocabulary: FC = () => {
     await addCard({ vocabularyId, ...data })
   }
 
-  const handleCardsScroll = (evt: React.UIEvent<HTMLUListElement>) => {
-    if (evt.currentTarget.scrollTop > 0) setAreCardsScrolled(true)
-    else setAreCardsScrolled(false)
-  }
-
   useFollowSeverStatus({ status: addingCardStatus })
 
   if (isVocabularyLoading) return <div>Loading...</div>
@@ -50,20 +44,24 @@ const Vocabulary: FC = () => {
     <div className="vocabulary">
       <h1 className="vocabulary__title">{vocabulary?.name}</h1>
       <div className="vocabulary__left">
-        <CardForm isBordered={areCardsScrolled} onSubmit={handleAddCard} />
-        <List<ICard>
-          data={vocabulary?.cards!}
-          getItemKey={card => card._id}
-          onScroll={handleCardsScroll}
-          renderItem={card => (
-            <WordCard
-              card={card}
-              isSelected={card._id === selectedCardId}
-              onClick={selectCard}
+        <ScrollableWithHeader
+          headerElement={(<CardForm onSubmit={handleAddCard} />)}
+          contentElement={(
+            <List<ICard>
+              data={vocabulary?.cards!}
+              getItemKey={card => card._id}
+              renderItem={card => (
+                <WordCard
+                  card={card}
+                  isSelected={card._id === selectedCardId}
+                  onClick={selectCard}
+                />
+              )}
+              itemClassName="vocabulary__card-item"
             />
           )}
-          listClassName="vocabulary__card-list"
-          itemClassName="vocabulary__card-item"
+          headerClassName="vocabulary__cards-header"
+          contentClassName="vocabulary__cards-content"
         />
       </div>
       <div className="vocabulary__right">

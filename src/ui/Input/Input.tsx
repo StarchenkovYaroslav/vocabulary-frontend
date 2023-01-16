@@ -10,7 +10,6 @@ const Input: FC<Props> = ({
   type,
   className,
   placeholder,
-
 }) => {
   return (
     <Field name={name} type={type}>

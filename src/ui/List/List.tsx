@@ -5,7 +5,6 @@ interface Props<Item> {
   data: Item[]
   getItemKey: (item: Item) => string
   renderItem: (item: Item) => JSX.Element
-  onScroll?: React.UIEventHandler
   listClassName?: string
   itemClassName?: string
 }
@@ -14,7 +13,6 @@ function List<Item>({
   data,
   getItemKey,
   renderItem,
-  onScroll,
   listClassName,
   itemClassName,
 }: Props<Item>) {
@@ -25,7 +23,7 @@ function List<Item>({
   if (itemClassName) finalItemClassName += ` ${itemClassName}`
 
   return (
-    <ul onScroll={onScroll} className={finalListClassName}>
+    <ul className={finalListClassName}>
       {data.map(item => (
         <li key={getItemKey(item)} className={finalItemClassName}>
           {renderItem(item)}
