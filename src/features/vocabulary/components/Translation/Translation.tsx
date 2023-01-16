@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { ITranslation } from '../../../../models/ITranslation'
-import { DeleteButton } from '../DeleteButton'
+import { DeleteButton } from '../../../../ui'
 import { useRemoveTranslationMutation } from '../../../../store/api'
 import { useFollowSeverStatus } from '../../../../hooks'
 import './Translation.css'

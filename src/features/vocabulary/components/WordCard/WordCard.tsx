@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { ICard } from '../../../../models'
 import { useRemoveCardMutation } from '../../../../store/api'
-import { DeleteButton } from '../DeleteButton'
+import { DeleteButton } from '../../../../ui'
 import './WordCard.css'
 import { useFollowSeverStatus } from '../../../../hooks'
 
