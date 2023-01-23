@@ -1,8 +1,6 @@
 import React, { FC, useState } from 'react'
-import { Button } from 'antd'
-import { PlusCircleOutlined } from '@ant-design/icons'
 import { Translation } from '../Translation'
-import { List, DeleteButton } from '../../../../ui'
+import { List, DeleteButton, AddButton } from '../../../../ui'
 import { AddTranslationForm } from '../AddTranslationForm'
 import { ITranslation } from '../../../../models/ITranslation'
 import { IMeaning } from '../../../../models/IMeaning'
@@ -55,18 +53,7 @@ const Meaning: FC<Props> = ({
     <div className="word-info__meaning">
       <div className="word-info__meaning-title-container">
         <h3 className="word-info__meaning-title">{meaning.name}</h3>
-        <Button
-          htmlType="button"
-          onClick={switchAddTranslationForm}
-          shape="default"
-          type="ghost"
-          icon={
-            <PlusCircleOutlined
-              style={{ fontSize: '14px' }}
-            />
-          }
-          className="word-info__add-meaning-button"
-        />
+        <AddButton onAdd={switchAddTranslationForm} />
         <DeleteButton
           isDeleting={isMeaningDeleting}
           onDelete={handleRemoveMeaning}

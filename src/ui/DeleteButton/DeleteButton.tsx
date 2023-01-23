@@ -11,7 +11,7 @@ interface Props {
   popConfirmPlacement: PopconfirmProps['placement']
   isDeleting: boolean,
   onDelete: () => void,
-  size?: number
+  iconSize?: number | string
 }
 
 const DeleteButton: FC<Props> = ({
@@ -20,7 +20,7 @@ const DeleteButton: FC<Props> = ({
   popConfirmPlacement,
   isDeleting,
   onDelete,
-  size,
+  iconSize,
 }) => {
   let finalClassName = 'delete-button'
   if (buttonClassName) finalClassName += ` ${buttonClassName}`
@@ -62,7 +62,7 @@ const DeleteButton: FC<Props> = ({
         type="ghost"
         icon={
           <DeleteOutlined
-            style={{ fontSize: size || 14 }}
+            style={{ fontSize: iconSize || 14 }}
           />
         }
         loading={isDeleting}
