@@ -6,6 +6,7 @@ import { WordInfo } from '../WordInfo'
 import { CardForm } from '../CardForm'
 import { ICard } from '../../../../models'
 import { useFollowSeverStatus } from '../../../../hooks'
+import { WordCardList } from '../WordCardList'
 import './Vocabulary.css'
 
 // TODO: handle hardcore
@@ -47,17 +48,10 @@ const Vocabulary: FC = () => {
         <ScrollableWithHeader
           headerElement={(<CardForm onSubmit={handleAddCard} />)}
           contentElement={(
-            <List<ICard>
-              data={vocabulary?.cards!}
-              getItemKey={card => card._id}
-              renderItem={card => (
-                <WordCard
-                  card={card}
-                  isSelected={card._id === selectedCardId}
-                  onClick={selectCard}
-                />
-              )}
-              itemClassName="vocabulary__card-item"
+            <WordCardList
+              cards={vocabulary?.cards!}
+              onCardClick={selectCard}
+              selectedCardId={selectedCardId}
             />
           )}
           headerClassName="vocabulary__cards-header"

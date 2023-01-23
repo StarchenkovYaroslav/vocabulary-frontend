@@ -30,10 +30,6 @@
     grid-area: title;
 }
 
-.vocabulary__card-item {
-    margin: 0 0 5px;
-}
-
 .vocabulary__card-item:last-of-type {
     margin-bottom: 0;
 }

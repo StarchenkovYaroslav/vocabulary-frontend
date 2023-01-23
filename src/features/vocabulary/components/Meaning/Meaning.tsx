@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import { Translation } from '../Translation'
 import { List, DeleteButton, AddButton } from '../../../../ui'
 import { AddTranslationForm } from '../AddTranslationForm'
+import { TranslationList } from '../TranslationList'
 import { ITranslation } from '../../../../models/ITranslation'
 import { IMeaning } from '../../../../models/IMeaning'
 import { useAddTranslationMutation, useRemoveMeaningMutation } from '../../../../store/api'
@@ -65,19 +66,10 @@ const Meaning: FC<Props> = ({
         onSubmit={handleAddTranslation}
         isVisible={isAddTranslationFormVisible}
       />
-      <div className="word-info__translation-list">
-        <List<ITranslation>
-          data={meaning.translations}
-          getItemKey={translation => translation._id}
-          renderItem={translation => (
-            <Translation
-              translation={translation}
-              meaningId={meaning._id}
-            />
-          )}
-          itemClassName="word-info__translation-item"
-        />
-      </div>
+      <TranslationList
+        translations={meaning.translations}
+        meaningId={meaning._id}
+      />
     </div>
   )
 }

@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 import { ICard } from '../../../../models'
-import { IMeaning } from '../../../../models/IMeaning'
-import { List, ScrollableWithHeader } from '../../../../ui'
+import { ScrollableWithHeader } from '../../../../ui'
 import { AddMeaningForm } from '../AddMeaningForm'
-import { Meaning } from '../Meaning'
+import { MeaningList } from '../MeaningList'
 import { useCreateMeaningMutation } from '../../../../store/api'
 import { useFollowSeverStatus } from '../../../../hooks'
 import './WordInfo.css'
@@ -30,15 +29,7 @@ const WordInfo: FC<Props> = ({ card }) => {
           <AddMeaningForm onSubmit={handleAddMeaning} />
         </>
       )}
-      contentElement={(
-        <List<IMeaning>
-          data={card.meanings}
-          getItemKey={meaning => meaning._id}
-          renderItem={meaning => (
-            <Meaning meaning={meaning} />
-          )}
-        />
-      )}
+      contentElement={<MeaningList meanings={card.meanings} />}
       headerClassName="word-info__header"
       contentClassName="word-info__content"
     />
