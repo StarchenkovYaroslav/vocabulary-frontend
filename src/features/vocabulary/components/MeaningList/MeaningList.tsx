@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { IMeaning } from '../../../../models/IMeaning'
 import { Meaning } from '../Meaning'
 import { List } from '../../../../ui'
+import './MeaningList.css'
 
 interface Props {
   meanings: IMeaning[]
@@ -15,6 +16,7 @@ const MeaningList: FC<Props> = ({ meanings }) => {
       renderItem={meaning => (
         <Meaning meaning={meaning} />
       )}
+      itemClassName="meanings-item"
     />
   )
 }
