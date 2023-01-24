@@ -1,0 +1,15 @@
+.manageable__add-form {
+    display: none;
+}
+
+.manageable__add-form_visible {
+    display: block;
+}
+
+.manageable__header {
+    display: flex;
+}
+
+.manageable__add-form {
+    margin: 0 0 6px;
+}

@@ -2,25 +2,16 @@
     margin: 0 0 15px;
 }
 
-.word-info__meaning-title-container {
-    display: flex;
+.word-info__meaning-header {
     margin: 0 0 6px;
 }
 
 .word-info__meaning-title {
     font-size: 20px;
     font-weight: bold;
-    margin: 0;
+    margin: 0 0 0 0;
 }
 
-.word-info__translation-list {
+.word-info__meaning-content {
     padding: 0 0 0 10px;
-}
-
-.word-info__translation-item {
-    margin: 0 0 5px;
-}
-
-.word-info__translation-item:last-of-type {
-    margin-bottom: 0;
 }

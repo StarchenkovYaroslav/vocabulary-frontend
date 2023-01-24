@@ -1,17 +1,9 @@
 .add-translation-form {
     box-sizing: border-box;
-    display: none;
-    margin: 0 0 6px;
-    visibility: hidden;
-    opacity: 0;
+    display: flex;
+    margin: 0;
     transition: all 0.3s;
     width: 50%;
-}
-
-.add-translation-form_visible {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
 }
 
 .add-translation-form__input {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { ITranslation } from '../../../../models/ITranslation'
-import { DeleteButton } from '../../../../ui'
+import { Manageable } from '../../../../ui'
 import { useRemoveTranslationMutation } from '../../../../store/api'
 import { useFollowSeverStatus } from '../../../../hooks'
 import './Translation.css'
@@ -29,15 +29,15 @@ const Translation: FC<Props> = ({
   }
 
   return (
-    <div className="word-info__translation">
-      <p className="word-info__translation-name">{translation.name}</p>
-      <DeleteButton
-        popConfirmTitle="Удалить перевод?"
-        popConfirmPlacement="top"
-        isDeleting={isTranslationDeleting}
-        onDelete={handleRemoveTranslation}
-      />
-    </div>
+    <Manageable
+      headerElement={<p className="word-info__translation-name">{translation.name}</p>}
+      deleteOptions={{
+        onDelete: handleRemoveTranslation,
+        isDeleting: isTranslationDeleting,
+        popConfirmDeleteTitle: 'Удалить перевод?',
+        popConfirmDeletePlacement: 'top',
+      }}
+    />
   )
 }
 

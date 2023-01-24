@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react'
-import { DeleteButton, AddButton } from '../../../../ui'
+import React, { FC } from 'react'
+import { Manageable } from '../../../../ui'
 import { AddTranslationForm } from '../AddTranslationForm'
 import { TranslationList } from '../TranslationList'
 import { IMeaning } from '../../../../models/IMeaning'
@@ -14,11 +14,6 @@ interface Props {
 const Meaning: FC<Props> = ({
   meaning,
 }) => {
-  const [
-    isAddTranslationFormVisible,
-    setIsAddTranslationFormVisible
-  ] = useState<boolean>(false)
-
   const [
     addTranslation,
     {
@@ -41,34 +36,28 @@ const Meaning: FC<Props> = ({
 
   const handleRemoveMeaning = () => removeMeaning(meaning._id)
 
-  const switchAddTranslationForm = () => {
-    setIsAddTranslationFormVisible(prevState => !prevState)
-  }
-
   useFollowSeverStatus({ status: meaningDeletingStatus })
   useFollowSeverStatus({ status: translationAddingStatus })
 
   return (
-    <div className="word-info__meaning">
-      <div className="word-info__meaning-title-container">
-        <h3 className="word-info__meaning-title">{meaning.name}</h3>
-        <AddButton onAdd={switchAddTranslationForm} />
-        <DeleteButton
-          isDeleting={isMeaningDeleting}
-          onDelete={handleRemoveMeaning}
-          popConfirmTitle="Удалить значение с переводами?"
-          popConfirmPlacement="top"
+    <Manageable
+      headerElement={<h3 className="word-info__meaning-title">{meaning.name}</h3>}
+      contentElement={
+        <TranslationList
+          translations={meaning.translations}
+          meaningId={meaning._id}
         />
-      </div>
-      <AddTranslationForm
-        onSubmit={handleAddTranslation}
-        isVisible={isAddTranslationFormVisible}
-      />
-      <TranslationList
-        translations={meaning.translations}
-        meaningId={meaning._id}
-      />
-    </div>
+      }
+      addFormElement={<AddTranslationForm onSubmit={handleAddTranslation} />}
+      deleteOptions={{
+        onDelete: handleRemoveMeaning,
+        isDeleting: isMeaningDeleting,
+        popConfirmDeleteTitle: 'Удалить значение с переводами?',
+        popConfirmDeletePlacement: 'top',
+      }}
+      headerClassName="word-info__meaning-header"
+      contentClassName="word-info__meaning-content"
+    />
   )
 }
 

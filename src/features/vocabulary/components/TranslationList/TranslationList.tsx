@@ -20,7 +20,6 @@ const TranslationList: FC<Props> = ({ translations, meaningId }) => {
           meaningId={meaningId}
         />
       )}
-      listClassName="translation-list"
       itemClassName="translation-item"
     />
   )
