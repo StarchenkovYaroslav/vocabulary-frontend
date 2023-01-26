@@ -12,13 +12,13 @@
     padding: 0 20px 0;
 }
 
-.vocabulary__left {
+.vocabulary__word-cards-panel {
     grid-area: left;
     height: 100%;
     overflow: hidden;
 }
 
-.vocabulary__right {
+.vocabulary__word-info-panel {
     grid-area: right;
     height: 100%;
     overflow-y: hidden;
@@ -28,21 +28,4 @@
 .vocabulary__title {
     text-align: center;
     grid-area: title;
-}
-
-.vocabulary__card-item:last-of-type {
-    margin-bottom: 0;
-}
-
-.vocabulary__card-info {
-    box-sizing: border-box;
-    overflow-y: auto;
-}
-
-.vocabulary__cards-header {
-    padding: 0 10px 20px;
-}
-
-.vocabulary__cards-content {
-    padding: 0 10px;
 }
