@@ -37,7 +37,10 @@ const Vocabulary: FC = () => {
         />
       </div>
       <div className="vocabulary__word-info-panel">
-        <WordInfoPanel card={selectedCard} />
+        {selectedCard
+          ? <WordInfoPanel card={selectedCard} />
+          : <div>Слово не выбрано</div>
+        }
       </div>
     </div>
   )

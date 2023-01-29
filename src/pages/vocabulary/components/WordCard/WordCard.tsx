@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { ICard } from '../../../../models'
 import { useRemoveCardMutation } from '../../../../store/api'
 import { DeleteButton } from '../../../../ui'
-import { useFollowSeverStatus } from '../../../../hooks'
+import { useFollowServerStatus } from '../../../../hooks'
 import './WordCard.css'
 
 interface Props {
@@ -24,14 +24,13 @@ const WordCard: FC<Props> =({
     }
   ] = useRemoveCardMutation()
 
-  let cardClassName = 'card'
-  if (isSelected) cardClassName += ' card_selected'
+  useFollowServerStatus({ status: cardRemovingStatus })
 
   const handleClick = () => onClick(card._id)
-
   const handleDelete = () => removeCard(card._id)
 
-  useFollowSeverStatus({ status: cardRemovingStatus })
+  let cardClassName = 'card'
+  if (isSelected) cardClassName += ' card_selected'
 
   return (
     <div

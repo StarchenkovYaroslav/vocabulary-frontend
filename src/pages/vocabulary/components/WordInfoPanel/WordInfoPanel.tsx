@@ -4,17 +4,17 @@ import { ScrollableWithHeader } from '../../../../ui'
 import { AddMeaningForm } from '../AddMeaningForm'
 import { MeaningList } from '../MeaningList'
 import { useCreateMeaningMutation } from '../../../../store/api'
-import { useFollowSeverStatus } from '../../../../hooks'
-import './WordInfo.css'
+import { useFollowServerStatus } from '../../../../hooks'
+import './WordInfoPanel.css'
 
 interface Props {
   card: ICard
 }
 
-const WordInfo: FC<Props> = ({ card }) => {
+const WordInfoPanel: FC<Props> = ({ card }) => {
   const [createMeaning, { status: meaningCreationStatus }] = useCreateMeaningMutation()
 
-  useFollowSeverStatus({ status: meaningCreationStatus })
+  useFollowServerStatus({ status: meaningCreationStatus })
 
   // TODO: type data
   const handleAddMeaning = async (data: { name: string }) => {
@@ -36,4 +36,4 @@ const WordInfo: FC<Props> = ({ card }) => {
   )
 }
 
-export default WordInfo
+export default WordInfoPanel

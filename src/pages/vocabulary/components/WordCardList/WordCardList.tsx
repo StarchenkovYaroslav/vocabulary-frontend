@@ -15,6 +15,8 @@ const WordCardList: FC<Props> = ({
   onCardClick,
   selectedCardId,
 }) => {
+  if (!cards.length) return <div>Список слов пуст</div>
+
   return (
     <List<ICard>
       data={cards}

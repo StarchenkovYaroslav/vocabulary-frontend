@@ -13,7 +13,7 @@ interface Params {
   errorMessage?: string
 }
 
-export const useFollowSeverStatus = ({
+export const useFollowServerStatus = ({
   status,
   successMessage,
   errorMessage,

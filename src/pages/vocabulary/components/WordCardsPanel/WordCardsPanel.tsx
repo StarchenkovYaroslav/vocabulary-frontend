@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { CardForm } from '../CardForm'
 import { WordCardList } from '../WordCardList'
 import { ScrollableWithHeader } from '../../../../ui'
 import { ICard } from '../../../../models'
 import { useAddCardMutation } from '../../../../store/api'
-import { useFollowSeverStatus } from '../../../../hooks'
+import { useFollowServerStatus } from '../../../../hooks'
 import './WordCardsPanel.css'
 
 interface Props {
@@ -22,12 +22,12 @@ const WordCardsPanel: FC<Props> = ({
 }) => {
   const [addCard, { status: addingCardStatus }] = useAddCardMutation()
 
+  useFollowServerStatus({ status: addingCardStatus })
+
   // TODO: type data
   const handleAddCard = async (data: { wordName: string }) => {
     await addCard({ vocabularyId, ...data })
   }
-
-  useFollowSeverStatus({ status: addingCardStatus })
 
   return (
     <ScrollableWithHeader

@@ -4,7 +4,7 @@ import { AddTranslationForm } from '../AddTranslationForm'
 import { TranslationList } from '../TranslationList'
 import { IMeaning } from '../../../../models/IMeaning'
 import { useAddTranslationMutation, useRemoveMeaningMutation } from '../../../../store/api'
-import { useFollowSeverStatus } from '../../../../hooks'
+import { useFollowServerStatus } from '../../../../hooks'
 import './Meaning.css'
 
 interface Props {
@@ -29,15 +29,15 @@ const Meaning: FC<Props> = ({
     }
   ] = useRemoveMeaningMutation()
 
+  useFollowServerStatus({ status: meaningDeletingStatus })
+  useFollowServerStatus({ status: translationAddingStatus })
+
   // TODO: type
   const handleAddTranslation = async (data: { translationName: string }) => {
     await addTranslation({ ...data, meaningId: meaning._id })
   }
 
   const handleRemoveMeaning = () => removeMeaning(meaning._id)
-
-  useFollowSeverStatus({ status: meaningDeletingStatus })
-  useFollowSeverStatus({ status: translationAddingStatus })
 
   return (
     <Manageable
