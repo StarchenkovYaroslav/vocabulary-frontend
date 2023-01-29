@@ -1,8 +1,4 @@
-.word-info__translation {
-    display: flex;
-}
-
-.word-info__translation-name {
+.translation-name {
     font-size: 20px;
     margin: 0;
 }

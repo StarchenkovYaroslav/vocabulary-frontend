@@ -1,7 +1,7 @@
-.meanings-item {
+.meaning-item {
     margin: 0 0 10px;
 }
 
-.meanings-item:last-of-type {
+.meaning-item:last-of-type {
     margin-bottom: 0;
 }

@@ -25,13 +25,13 @@ const WordInfoPanel: FC<Props> = ({ card }) => {
     <ScrollableWithHeader
       headerElement={(
         <>
-          <h2 className="word-info__title">{card.word.name}</h2>
+          <h2 className="word-title">{card.word.name}</h2>
           <AddMeaningForm onSubmit={handleAddMeaning} />
         </>
       )}
       contentElement={<MeaningList meanings={card.meanings} />}
-      headerClassName="word-info__header"
-      contentClassName="word-info__content"
+      headerClassName="word-header"
+      contentClassName="word-content"
     />
   )
 }

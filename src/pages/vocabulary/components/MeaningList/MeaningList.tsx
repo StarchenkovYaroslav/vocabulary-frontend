@@ -16,7 +16,7 @@ const MeaningList: FC<Props> = ({ meanings }) => {
       renderItem={meaning => (
         <Meaning meaning={meaning} />
       )}
-      itemClassName="meanings-item"
+      itemClassName="meaning-item"
     />
   )
 }

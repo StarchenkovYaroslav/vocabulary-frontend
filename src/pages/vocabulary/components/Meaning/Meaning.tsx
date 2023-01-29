@@ -41,7 +41,7 @@ const Meaning: FC<Props> = ({
 
   return (
     <Manageable
-      headerElement={<h3 className="word-info__meaning-title">{meaning.name}</h3>}
+      headerElement={<h3 className="meaning-title">{meaning.name}</h3>}
       contentElement={
         <TranslationList
           translations={meaning.translations}
@@ -55,8 +55,8 @@ const Meaning: FC<Props> = ({
         popConfirmDeleteTitle: 'Удалить значение с переводами?',
         popConfirmDeletePlacement: 'top',
       }}
-      headerClassName="word-info__meaning-header"
-      contentClassName="word-info__meaning-content"
+      headerClassName="meaning-header"
+      contentClassName="meaning-content"
     />
   )
 }

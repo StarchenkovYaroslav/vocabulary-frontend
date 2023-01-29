@@ -1,13 +1,13 @@
-.word-info__header {
+.word-header {
     padding: 0 10px 20px;
 }
 
-.word-info__title {
+.word-title {
     font-size: 30px;
     font-weight: bold;
     margin: 0 0 6px;
 }
 
-.word-info__content {
+.word-content {
     padding: 0 10px;
 }

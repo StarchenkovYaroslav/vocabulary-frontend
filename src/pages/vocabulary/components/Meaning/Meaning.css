@@ -1,17 +1,13 @@
-.word-info__meaning {
-    margin: 0 0 15px;
-}
-
-.word-info__meaning-header {
+.meaning-header {
     margin: 0 0 6px;
 }
 
-.word-info__meaning-title {
+.meaning-title {
     font-size: 20px;
     font-weight: bold;
     margin: 0 0 0 0;
 }
 
-.word-info__meaning-content {
+.meaning-content {
     padding: 0 0 0 10px;
 }

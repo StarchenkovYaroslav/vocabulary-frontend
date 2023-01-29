@@ -30,7 +30,7 @@ const Translation: FC<Props> = ({
 
   return (
     <Manageable
-      headerElement={<p className="word-info__translation-name">{translation.name}</p>}
+      headerElement={<p className="translation-name">{translation.name}</p>}
       deleteOptions={{
         onDelete: handleRemoveTranslation,
         isDeleting: isTranslationDeleting,
