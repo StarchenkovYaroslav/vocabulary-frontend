@@ -1,0 +1,31 @@
+.vocabulary {
+    align-content: start;
+    box-sizing: border-box;
+    display: grid;
+    column-gap: 30px;
+    grid-template-areas:
+        "title title"
+        "left right";
+    grid-template-columns: 1fr 1.3fr;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0 20px 0;
+}
+
+.vocabulary__word-cards-panel {
+    grid-area: left;
+    height: 100%;
+    overflow: hidden;
+}
+
+.vocabulary__word-info-panel {
+    grid-area: right;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+
+.vocabulary__title {
+    text-align: center;
+    grid-area: title;
+}

@@ -1,1 +1,1 @@
-export * from './vocabulary.api'
+export * from './vocabulary'

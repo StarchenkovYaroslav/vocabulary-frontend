@@ -1,0 +1,7 @@
+.translation-item {
+    margin: 0 0 5px;
+}
+
+.translation-item:last-of-type {
+    margin-bottom: 0;
+}

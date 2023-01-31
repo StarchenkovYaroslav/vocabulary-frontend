@@ -1,5 +1,5 @@
 import React from 'react'
-import { VocabularyPage } from './features/vocabulary'
+import { VocabularyPage } from './pages/vocabulary'
 import { useActions } from './hooks'
 import { message } from 'antd'
 

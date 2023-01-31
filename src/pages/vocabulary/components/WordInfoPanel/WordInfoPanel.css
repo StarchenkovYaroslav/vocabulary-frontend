@@ -1,0 +1,13 @@
+.word-header {
+    padding: 0 10px 20px;
+}
+
+.word-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 0 6px;
+}
+
+.word-content {
+    padding: 0 10px;
+}
