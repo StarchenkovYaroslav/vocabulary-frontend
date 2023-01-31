@@ -1,0 +1,9 @@
+.word-title-header {
+    margin: 0 0 6px;
+}
+
+.word-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+}
