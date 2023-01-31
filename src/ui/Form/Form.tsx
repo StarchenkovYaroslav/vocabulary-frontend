@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Form as FinalForm, FormProps } from 'react-final-form'
 
 interface Props<FormValues> extends FormProps<FormValues> {
@@ -9,13 +9,12 @@ function Form<FormValues>({
   onSubmit,
   className,
   children,
-}: Props<FormValues>) {
+}: PropsWithChildren<Props<FormValues>>) {
   return (
     <FinalForm<FormValues> onSubmit={onSubmit}>
       {({ handleSubmit }) => (
         <form className={className} onSubmit={handleSubmit}>
-          {/*TODO: type*/}
-          {children as React.ReactNode}
+          {children}
         </form>
       )}
     </FinalForm>
