@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { AddMeaningForm, AddMeaningFormValues } from '../AddMeaningForm'
 import { Manageable } from '../../../../ui'
 import { ICard } from '../../../../models'
-import { useCreateMeaningMutation } from '../../../../store/api'
+import { useAddMeaningMutation } from '../../../../store/api'
 import { useFollowServerStatus } from '../../../../hooks'
 import './WordInfoPanelHeader.css'
 
@@ -11,12 +11,12 @@ interface Props {
 }
 
 const WordInfoPanelHeader: FC<Props> = ({ card }) => {
-  const [createMeaning, { status: meaningCreationStatus }] = useCreateMeaningMutation()
+  const [addMeaning, { status: meaningAddingStatus }] = useAddMeaningMutation()
 
-  useFollowServerStatus({ status: meaningCreationStatus })
+  useFollowServerStatus({ status: meaningAddingStatus })
 
   const handleAddMeaning = async (args: AddMeaningFormValues) => {
-    await createMeaning({ ...args, cardId: card._id })
+    await addMeaning({ ...args, cardId: card._id })
   }
 
   return (

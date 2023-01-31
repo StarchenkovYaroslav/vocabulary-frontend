@@ -42,7 +42,7 @@ export const vocabularyApi = createApi({
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
-    createMeaning: build.mutation<any, CreateMeaningRequest>({
+    addMeaning: build.mutation<any, CreateMeaningRequest>({
       query: (body) => ({
         url: 'meanings',
         method: 'POST',
@@ -83,7 +83,7 @@ export const {
   useGetVocabularyQuery,
   useAddCardMutation,
   useRemoveCardMutation,
-  useCreateMeaningMutation,
+  useAddMeaningMutation,
   useRemoveMeaningMutation,
   useRemoveTranslationMutation,
   useAddTranslationMutation,
