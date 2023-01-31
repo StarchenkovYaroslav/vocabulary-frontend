@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { CardForm } from '../CardForm'
+import { CardForm, CardFormValues } from '../CardForm'
 import { WordCardList } from '../WordCardList'
 import { ScrollableWithHeader } from '../../../../ui'
 import { ICard } from '../../../../models'
@@ -24,9 +24,8 @@ const WordCardsPanel: FC<Props> = ({
 
   useFollowServerStatus({ status: addingCardStatus })
 
-  // TODO: type data
-  const handleAddCard = async (data: { wordName: string }) => {
-    await addCard({ vocabularyId, ...data })
+  const handleAddCard = async (args: CardFormValues) => {
+    await addCard({ ...args, vocabularyId })
   }
 
   return (

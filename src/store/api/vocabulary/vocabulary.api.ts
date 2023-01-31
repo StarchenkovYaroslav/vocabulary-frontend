@@ -1,5 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IVocabulary } from '../../models'
+import { IVocabulary } from '../../../models'
+import {
+  AddCardRequest,
+  AddTranslationRequest,
+  CreateMeaningRequest,
+  GetVocabularyRequest,
+  RemoveCardRequest,
+  RemoveMeaningRequest,
+  RemoveTranslationRequest,
+} from './request-types'
 
 export const vocabularyApi = createApi({
   reducerPath: 'vocabularyApi',
@@ -9,14 +18,14 @@ export const vocabularyApi = createApi({
   tagTypes: ['Vocabulary'],
   endpoints: build => ({
     // TODO: type query arg
-    getVocabulary: build.query<IVocabulary, string>({
+    getVocabulary: build.query<IVocabulary, GetVocabularyRequest>({
       query: (id: string) => ({
         url: `vocabularies/${id}`,
       }),
       providesTags: ['Vocabulary'],
     }),
     // TODO: type
-    addCard: build.mutation<any, { wordName: string, vocabularyId: string }>({
+    addCard: build.mutation<any, AddCardRequest>({
       query: (body) => ({
         url: 'cards',
         method: 'POST',
@@ -25,7 +34,7 @@ export const vocabularyApi = createApi({
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
-    removeCard: build.mutation<any, string>({
+    removeCard: build.mutation<any, RemoveCardRequest>({
       query: (id) => ({
         url: `cards/${id}`,
         method: 'DELETE',
@@ -33,7 +42,7 @@ export const vocabularyApi = createApi({
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
-    createMeaning: build.mutation<any, { name: string, cardId: string }>({
+    createMeaning: build.mutation<any, CreateMeaningRequest>({
       query: (body) => ({
         url: 'meanings',
         method: 'POST',
@@ -42,7 +51,7 @@ export const vocabularyApi = createApi({
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
-    removeMeaning: build.mutation<any, string>({
+    removeMeaning: build.mutation<any, RemoveMeaningRequest>({
       query: (id) => ({
         url: `meanings/${id}`,
         method: 'DELETE',
@@ -50,7 +59,7 @@ export const vocabularyApi = createApi({
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
-    removeTranslation: build.mutation<any, { meaningId: string, translationId: string }>({
+    removeTranslation: build.mutation<any, RemoveTranslationRequest>({
       query: ({ meaningId, ...body }) => ({
         url: `meanings/${meaningId}/translations`,
         method: 'DELETE',
@@ -59,7 +68,7 @@ export const vocabularyApi = createApi({
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
-    addTranslation: build.mutation<any, { meaningId: string, translationName: string }>({
+    addTranslation: build.mutation<any, AddTranslationRequest>({
       query: ({ meaningId, ...body }) => ({
         url: `meanings/${meaningId}/translations`,
         method: 'PUT',

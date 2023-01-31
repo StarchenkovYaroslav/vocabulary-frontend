@@ -1,17 +1,17 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Form as FinalForm, FormProps } from 'react-final-form'
 
-interface Props extends FormProps {
+interface Props<FormValues> extends FormProps<FormValues> {
   className?: string
 }
 
-const Form: FC<Props> = ({
+function Form<FormValues>({
   onSubmit,
   className,
   children,
-}) => {
+}: Props<FormValues>) {
   return (
-    <FinalForm onSubmit={onSubmit}>
+    <FinalForm<FormValues> onSubmit={onSubmit}>
       {({ handleSubmit }) => (
         <form className={className} onSubmit={handleSubmit}>
           {/*TODO: type*/}

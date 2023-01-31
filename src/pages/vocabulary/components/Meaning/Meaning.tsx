@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Manageable } from '../../../../ui'
-import { AddTranslationForm } from '../AddTranslationForm'
+import { AddTranslationForm, AddTranslationFormValues } from '../AddTranslationForm'
 import { TranslationList } from '../TranslationList'
 import { IMeaning } from '../../../../models/IMeaning'
 import { useAddTranslationMutation, useRemoveMeaningMutation } from '../../../../store/api'
@@ -32,9 +32,8 @@ const Meaning: FC<Props> = ({
   useFollowServerStatus({ status: meaningDeletingStatus })
   useFollowServerStatus({ status: translationAddingStatus })
 
-  // TODO: type
-  const handleAddTranslation = async (data: { translationName: string }) => {
-    await addTranslation({ ...data, meaningId: meaning._id })
+  const handleAddTranslation = async (args: AddTranslationFormValues) => {
+    await addTranslation({ ...args, meaningId: meaning._id })
   }
 
   const handleRemoveMeaning = () => removeMeaning(meaning._id)

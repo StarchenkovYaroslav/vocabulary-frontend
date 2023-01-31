@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { ICard } from '../../../../models'
 import { ScrollableWithHeader } from '../../../../ui'
-import { AddMeaningForm } from '../AddMeaningForm'
+import { AddMeaningForm, AddMeaningFormValues } from '../AddMeaningForm'
 import { MeaningList } from '../MeaningList'
 import { useCreateMeaningMutation } from '../../../../store/api'
 import { useFollowServerStatus } from '../../../../hooks'
@@ -16,9 +16,8 @@ const WordInfoPanel: FC<Props> = ({ card }) => {
 
   useFollowServerStatus({ status: meaningCreationStatus })
 
-  // TODO: type data
-  const handleAddMeaning = async (data: { name: string }) => {
-    await createMeaning({ ...data, cardId: card._id })
+  const handleAddMeaning = async (args: AddMeaningFormValues) => {
+    await createMeaning({ ...args, cardId: card._id })
   }
 
   return (

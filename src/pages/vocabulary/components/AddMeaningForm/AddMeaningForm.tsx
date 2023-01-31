@@ -1,14 +1,17 @@
 import React, { FC } from 'react'
 import { Form, Input, SubmitButton } from '../../../../ui'
+import { CreateMeaningRequest } from '../../../../store/api'
 import './AddMeaningForm.css'
 
+export type FormValues = Omit<CreateMeaningRequest, 'cardId'>
+
 interface Props {
-  onSubmit: (args: any) => void
+  onSubmit: (args: FormValues) => void
 }
 
 const AddMeaningForm: FC<Props> = ({ onSubmit }) => {
   return (
-    <Form className="add-meaning-form" onSubmit={onSubmit}>
+    <Form<FormValues> className="add-meaning-form" onSubmit={onSubmit}>
       <Input
         className="add-meaning-form__input"
         name="name"

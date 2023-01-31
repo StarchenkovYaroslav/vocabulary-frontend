@@ -1,14 +1,17 @@
 import React, { FC } from 'react'
 import { Form, Input, SubmitButton } from '../../../../ui'
+import { AddTranslationRequest } from '../../../../store/api'
 import './AddTranslationForm.css'
 
+export type FormValues = Omit<AddTranslationRequest, 'meaningId'>
+
 interface Props {
-  onSubmit: (args: any) => void
+  onSubmit: (args: FormValues) => void
 }
 
 const AddTranslationForm: FC<Props> = ({ onSubmit }) => {
   return (
-    <Form className="add-translation-form" onSubmit={onSubmit}>
+    <Form<FormValues> className="add-translation-form" onSubmit={onSubmit}>
       <Input
         className="add-translation-form__input"
         name="translationName"

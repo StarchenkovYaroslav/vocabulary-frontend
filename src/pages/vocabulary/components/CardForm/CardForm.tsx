@@ -1,14 +1,17 @@
 import React, { FC } from 'react'
 import { Form, Input, SubmitButton } from '../../../../ui'
+import { AddCardRequest } from '../../../../store/api'
 import './CardForm.css'
 
+export type FormValues = Omit<AddCardRequest, 'vocabularyId'>
+
 interface Props {
-  onSubmit: (args: any) => void
+  onSubmit: (args: FormValues) => void
 }
 
 const CardForm: FC<Props> = ({ onSubmit }) => {
   return (
-    <Form className="card-form" onSubmit={onSubmit}>
+    <Form<FormValues> className="card-form" onSubmit={onSubmit}>
       <Input
         name="wordName"
         type="text"
