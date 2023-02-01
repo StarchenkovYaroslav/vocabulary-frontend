@@ -1,17 +1,26 @@
 import React, { FC } from 'react'
 import { Form, Input, SubmitButton } from '../../../../ui'
-import { AddMeaningRequest } from '../../../../store/api'
+import { AddMeaningRequest, useAddMeaningMutation } from '../../../../store/api'
+import { useFollowServerStatus } from '../../../../hooks'
 import './AddMeaningForm.css'
 
-export type FormValues = Omit<AddMeaningRequest, 'cardId'>
+type FormValues = Omit<AddMeaningRequest, 'cardId'>
 
 interface Props {
-  onSubmit: (args: FormValues) => void
+  cardId: string
 }
 
-const AddMeaningForm: FC<Props> = ({ onSubmit }) => {
+const AddMeaningForm: FC<Props> = ({ cardId }) => {
+  const [addMeaning, { status: meaningAddingStatus }] = useAddMeaningMutation()
+
+  useFollowServerStatus({ status: meaningAddingStatus })
+
+  const handleAddMeaning = async (args: FormValues) => {
+    await addMeaning({ ...args, cardId })
+  }
+
   return (
-    <Form<FormValues> className="add-meaning-form" onSubmit={onSubmit}>
+    <Form<FormValues> className="add-meaning-form" onSubmit={handleAddMeaning}>
       <Input
         className="add-meaning-form__input"
         name="name"

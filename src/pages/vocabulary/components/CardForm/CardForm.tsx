@@ -1,17 +1,26 @@
 import React, { FC } from 'react'
 import { Form, Input, SubmitButton } from '../../../../ui'
-import { AddCardRequest } from '../../../../store/api'
+import { AddCardRequest, useAddCardMutation } from '../../../../store/api'
+import { useFollowServerStatus } from '../../../../hooks'
 import './CardForm.css'
 
-export type FormValues = Omit<AddCardRequest, 'vocabularyId'>
+type FormValues = Omit<AddCardRequest, 'vocabularyId'>
 
 interface Props {
-  onSubmit: (args: FormValues) => void
+  vocabularyId: string
 }
 
-const CardForm: FC<Props> = ({ onSubmit }) => {
+const CardForm: FC<Props> = ({ vocabularyId }) => {
+  const [addCard, { status: addingCardStatus }] = useAddCardMutation()
+
+  useFollowServerStatus({ status: addingCardStatus })
+
+  const handleAddCard = async (args: FormValues) => {
+    await addCard({ ...args, vocabularyId })
+  }
+
   return (
-    <Form<FormValues> className="card-form" onSubmit={onSubmit}>
+    <Form<FormValues> className="card-form" onSubmit={handleAddCard}>
       <Input
         name="wordName"
         type="text"

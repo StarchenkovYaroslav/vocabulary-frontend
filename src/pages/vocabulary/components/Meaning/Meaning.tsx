@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { Manageable } from '../../../../ui'
-import { AddTranslationForm, AddTranslationFormValues } from '../AddTranslationForm'
+import { AddTranslationForm } from '../AddTranslationForm'
 import { TranslationList } from '../TranslationList'
 import { IMeaning } from '../../../../models/IMeaning'
-import { useAddTranslationMutation, useRemoveMeaningMutation } from '../../../../store/api'
+import { useRemoveMeaningMutation } from '../../../../store/api'
 import { useFollowServerStatus } from '../../../../hooks'
 import './Meaning.css'
 
@@ -15,13 +15,6 @@ const Meaning: FC<Props> = ({
   meaning,
 }) => {
   const [
-    addTranslation,
-    {
-      status: translationAddingStatus,
-    }
-  ] = useAddTranslationMutation()
-
-  const [
     removeMeaning,
     {
       isLoading: isMeaningDeleting,
@@ -30,11 +23,6 @@ const Meaning: FC<Props> = ({
   ] = useRemoveMeaningMutation()
 
   useFollowServerStatus({ status: meaningDeletingStatus })
-  useFollowServerStatus({ status: translationAddingStatus })
-
-  const handleAddTranslation = async (args: AddTranslationFormValues) => {
-    await addTranslation({ ...args, meaningId: meaning._id })
-  }
 
   const handleRemoveMeaning = () => removeMeaning(meaning._id)
 
@@ -47,7 +35,7 @@ const Meaning: FC<Props> = ({
           meaningId={meaning._id}
         />
       }
-      addFormElement={<AddTranslationForm onSubmit={handleAddTranslation} />}
+      addFormElement={<AddTranslationForm meaningId={meaning._id} />}
       deleteOptions={{
         onDelete: handleRemoveMeaning,
         isDeleting: isMeaningDeleting,
