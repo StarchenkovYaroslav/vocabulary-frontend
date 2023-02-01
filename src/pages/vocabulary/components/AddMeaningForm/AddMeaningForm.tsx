@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { Form, Input, SubmitButton } from '../../../../ui'
-import { CreateMeaningRequest } from '../../../../store/api'
+import { AddMeaningRequest } from '../../../../store/api'
 import './AddMeaningForm.css'
 
-export type FormValues = Omit<CreateMeaningRequest, 'cardId'>
+export type FormValues = Omit<AddMeaningRequest, 'cardId'>
 
 interface Props {
   onSubmit: (args: FormValues) => void

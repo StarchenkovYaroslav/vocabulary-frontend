@@ -3,7 +3,7 @@ import { IVocabulary } from '../../../models'
 import {
   AddCardRequest,
   AddTranslationRequest,
-  CreateMeaningRequest,
+  AddMeaningRequest,
   GetVocabularyRequest,
   RemoveCardRequest,
   RemoveMeaningRequest,
@@ -42,7 +42,7 @@ export const vocabularyApi = createApi({
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
     // TODO: type
-    addMeaning: build.mutation<any, CreateMeaningRequest>({
+    addMeaning: build.mutation<any, AddMeaningRequest>({
       query: (body) => ({
         url: 'meanings',
         method: 'POST',

@@ -7,7 +7,7 @@ export interface AddCardRequest {
 
 export type RemoveCardRequest = string
 
-export interface CreateMeaningRequest {
+export interface AddMeaningRequest {
   name: string
   cardId: string
 }
