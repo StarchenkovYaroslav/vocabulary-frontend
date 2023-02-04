@@ -23,3 +23,9 @@ export interface AddTranslationRequest {
   meaningId: string
   translationName: string
 }
+
+export interface EditTranslationRequest {
+  meaningId: string
+  translationId: string
+  translationName: string
+}

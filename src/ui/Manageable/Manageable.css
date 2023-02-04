@@ -6,6 +6,14 @@
     display: block;
 }
 
+.manageable__edit-form {
+    display: none;
+}
+
+.manageable__edit-form_visible {
+    display: block;
+}
+
 .manageable__header {
     align-items: center;
     display: flex;

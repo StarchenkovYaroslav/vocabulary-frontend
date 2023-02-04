@@ -9,9 +9,10 @@ function Form<FormValues>({
   onSubmit,
   className,
   children,
+  initialValues,
 }: PropsWithChildren<Props<FormValues>>) {
   return (
-    <FinalForm<FormValues> onSubmit={onSubmit}>
+    <FinalForm<FormValues> onSubmit={onSubmit} initialValues={initialValues}>
       {({ handleSubmit }) => (
         <form className={className} onSubmit={handleSubmit}>
           {children}

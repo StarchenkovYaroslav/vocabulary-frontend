@@ -8,8 +8,10 @@ import {
   RemoveCardRequest,
   RemoveMeaningRequest,
   RemoveTranslationRequest,
+  EditTranslationRequest,
 } from './request-types'
 
+// TODO: type requests
 export const vocabularyApi = createApi({
   reducerPath: 'vocabularyApi',
   baseQuery: fetchBaseQuery({
@@ -17,14 +19,12 @@ export const vocabularyApi = createApi({
   }),
   tagTypes: ['Vocabulary'],
   endpoints: build => ({
-    // TODO: type query arg
     getVocabulary: build.query<IVocabulary, GetVocabularyRequest>({
       query: (id: string) => ({
         url: `vocabularies/${id}`,
       }),
       providesTags: ['Vocabulary'],
     }),
-    // TODO: type
     addCard: build.mutation<any, AddCardRequest>({
       query: (body) => ({
         url: 'cards',
@@ -33,7 +33,6 @@ export const vocabularyApi = createApi({
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
-    // TODO: type
     removeCard: build.mutation<any, RemoveCardRequest>({
       query: (id) => ({
         url: `cards/${id}`,
@@ -41,7 +40,6 @@ export const vocabularyApi = createApi({
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
-    // TODO: type
     addMeaning: build.mutation<any, AddMeaningRequest>({
       query: (body) => ({
         url: 'meanings',
@@ -50,7 +48,6 @@ export const vocabularyApi = createApi({
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
-    // TODO: type
     removeMeaning: build.mutation<any, RemoveMeaningRequest>({
       query: (id) => ({
         url: `meanings/${id}`,
@@ -58,7 +55,6 @@ export const vocabularyApi = createApi({
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
-    // TODO: type
     removeTranslation: build.mutation<any, RemoveTranslationRequest>({
       query: ({ meaningId, ...body }) => ({
         url: `meanings/${meaningId}/translations`,
@@ -67,11 +63,18 @@ export const vocabularyApi = createApi({
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     }),
-    // TODO: type
     addTranslation: build.mutation<any, AddTranslationRequest>({
       query: ({ meaningId, ...body }) => ({
         url: `meanings/${meaningId}/translations`,
         method: 'PUT',
+        body,
+      }),
+      invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
+    }),
+    editTranslation: build.mutation<any, EditTranslationRequest>({
+      query: ({ meaningId, ...body }) => ({
+        url: `meanings/${meaningId}/translations`,
+        method: 'PATCH',
         body,
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
@@ -87,4 +90,5 @@ export const {
   useRemoveMeaningMutation,
   useRemoveTranslationMutation,
   useAddTranslationMutation,
+  useEditTranslationMutation,
 } = vocabularyApi

@@ -27,20 +27,21 @@ const AddTranslationForm: FC<Props> = ({ meaningId }) => {
   return (
     <Form<FormValues>
       className="add-translation-form"
-      onSubmit={handleAddTranslation}>
-        <Input
-          className="add-translation-form__input"
-          name="translationName"
-          type="text"
-          placeholder="Добавить перевод"
-        />
-        <SubmitButton
-          className="add-translation-form__button"
-          htmlType="submit"
-          type="default"
-        >
-          +
-        </SubmitButton>
+      onSubmit={handleAddTranslation}
+    >
+      <Input
+        className="add-translation-form__input"
+        name="translationName"
+        type="text"
+        placeholder="Добавить перевод"
+      />
+      <SubmitButton
+        className="add-translation-form__button"
+        htmlType="submit"
+        type="default"
+      >
+        +
+      </SubmitButton>
     </Form>
   )
 }

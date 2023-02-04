@@ -5,7 +5,7 @@ import { WordInfoPanel } from '../WordInfoPanel'
 import './Vocabulary.css'
 
 // TODO: handle hardcore
-const vocabularyId = '6371617f94613befa4ca49a2'
+const vocabularyId = '63dc79c493379531dcd026e5'
 
 const Vocabulary: FC = () => {
   const [selectedCardId, setSelectedCardId] = useState<string>('')
