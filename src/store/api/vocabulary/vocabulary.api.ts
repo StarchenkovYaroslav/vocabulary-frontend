@@ -10,6 +10,7 @@ import {
   RemoveTranslationRequest,
   EditTranslationRequest,
   EditMeaningRequest,
+  EditWordRequest,
 } from './request-types'
 
 // TODO: type responses
@@ -87,6 +88,14 @@ export const vocabularyApi = createApi({
         body,
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
+    }),
+    editWord: build.mutation<any, EditWordRequest>({
+      query: ({ cardId, ...body }) => ({
+        url: `cards/${cardId}/word`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     })
   }),
 })
@@ -101,4 +110,5 @@ export const {
   useAddTranslationMutation,
   useEditTranslationMutation,
   useEditMeaningMutation,
+  useEditWordMutation,
 } = vocabularyApi

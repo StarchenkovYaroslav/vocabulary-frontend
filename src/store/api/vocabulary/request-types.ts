@@ -34,3 +34,8 @@ export interface EditMeaningRequest {
   id: string
   name: string
 }
+
+export interface EditWordRequest {
+  cardId: string
+  wordName: string
+}

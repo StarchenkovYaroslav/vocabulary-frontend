@@ -5,8 +5,8 @@ import { TranslationList } from '../TranslationList'
 import { IMeaning } from '../../../../models/IMeaning'
 import { useRemoveMeaningMutation } from '../../../../store/api'
 import { useFollowServerStatus } from '../../../../hooks'
-import './Meaning.css'
 import { EditMeaningForm } from '../EditMeaningForm'
+import './Meaning.css'
 
 interface Props {
   meaning: IMeaning
