@@ -6,6 +6,7 @@ import { IMeaning } from '../../../../models/IMeaning'
 import { useRemoveMeaningMutation } from '../../../../store/api'
 import { useFollowServerStatus } from '../../../../hooks'
 import './Meaning.css'
+import { EditMeaningForm } from '../EditMeaningForm'
 
 interface Props {
   meaning: IMeaning
@@ -36,6 +37,7 @@ const Meaning: FC<Props> = ({
         />
       }
       addFormElement={<AddTranslationForm meaningId={meaning._id} />}
+      editFormElement={<EditMeaningForm meaning={meaning} />}
       deleteOptions={{
         onDelete: handleRemoveMeaning,
         isDeleting: isMeaningDeleting,

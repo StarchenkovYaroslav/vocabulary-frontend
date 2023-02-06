@@ -1,0 +1,15 @@
+.edit-meaning-form {
+    box-sizing: border-box;
+    display: flex;
+    margin: 0;
+    transition: all 0.3s;
+    width: 50%;
+}
+
+.edit-meaning-form__input {
+    border-radius: 6px 0 0 6px;
+}
+
+.edit-meaning-form__button {
+    border-radius: 0 6px 6px 0;
+}

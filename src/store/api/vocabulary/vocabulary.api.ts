@@ -9,9 +9,10 @@ import {
   RemoveMeaningRequest,
   RemoveTranslationRequest,
   EditTranslationRequest,
+  EditMeaningRequest,
 } from './request-types'
 
-// TODO: type requests
+// TODO: type responses
 export const vocabularyApi = createApi({
   reducerPath: 'vocabularyApi',
   baseQuery: fetchBaseQuery({
@@ -78,6 +79,14 @@ export const vocabularyApi = createApi({
         body,
       }),
       invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
+    }),
+    editMeaning: build.mutation<any, EditMeaningRequest>({
+      query: ({ id, ...body }) => ({
+        url: `meanings/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: (result, error) => error ? [] : ['Vocabulary'],
     })
   }),
 })
@@ -91,4 +100,5 @@ export const {
   useRemoveTranslationMutation,
   useAddTranslationMutation,
   useEditTranslationMutation,
+  useEditMeaningMutation,
 } = vocabularyApi
