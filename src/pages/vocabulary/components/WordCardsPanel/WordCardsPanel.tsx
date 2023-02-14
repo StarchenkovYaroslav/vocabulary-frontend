@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { CardForm } from '../CardForm'
 import { WordCardList } from '../WordCardList'
 import { ScrollableWithHeader } from '../../../../ui'
@@ -18,16 +18,24 @@ const WordCardsPanel: FC<Props> = ({
   vocabularyId,
   onCardClick,
 }) => {
+  const [searchRequest, setSearchRequest] = useState<string>('')
+
+  const filteredCards = cards.filter(card => card.word.name.includes(searchRequest))
+
+  const onSearchCard = (inputValue: string) => setSearchRequest(inputValue)
+
   return (
     <ScrollableWithHeader
-      headerElement={(<CardForm vocabularyId={vocabularyId} />)}
-      contentElement={(
+      headerElement={
+        <CardForm vocabularyId={vocabularyId} onSearchCard={onSearchCard} />
+      }
+      contentElement={
         <WordCardList
-          cards={cards}
+          cards={filteredCards}
           onCardClick={onCardClick}
           selectedCardId={selectedCardId}
         />
-      )}
+      }
       headerClassName="cards-header"
       contentClassName="cards-content"
     />
