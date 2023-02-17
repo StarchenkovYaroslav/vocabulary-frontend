@@ -8,12 +8,14 @@ interface Props {
   cards: ICard[]
   onCardClick: (cardId: string) => void
   selectedCardId: string
+  searchRequest: string
 }
 
 const WordCardList: FC<Props> = ({
   cards,
   onCardClick,
   selectedCardId,
+  searchRequest,
 }) => {
   if (!cards.length) return <div>Список слов пуст</div>
 
@@ -26,6 +28,7 @@ const WordCardList: FC<Props> = ({
           card={card}
           isSelected={card._id === selectedCardId}
           onClick={onCardClick}
+          searchRequest={searchRequest}
         />
       )}
       itemClassName="card-item"

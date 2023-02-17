@@ -34,6 +34,7 @@ const WordCardsPanel: FC<Props> = ({
           cards={filteredCards}
           onCardClick={onCardClick}
           selectedCardId={selectedCardId}
+          searchRequest={searchRequest}
         />
       }
       headerClassName="cards-header"

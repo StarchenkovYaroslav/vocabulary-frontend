@@ -9,12 +9,14 @@ interface Props {
   card: ICard
   isSelected: boolean
   onClick: (cardId: string) => void
+  searchRequest: string
 }
 
 const WordCard: FC<Props> =({
- card,
- isSelected,
- onClick,
+  card,
+  isSelected,
+  onClick,
+  searchRequest,
 }) => {
   const [
     removeCard,
@@ -32,6 +34,18 @@ const WordCard: FC<Props> =({
   let cardClassName = 'card'
   if (isSelected) cardClassName += ' card_selected'
 
+  let cardTitle = <div className="card__title">{card.word.name}</div>
+  if (searchRequest) {
+    console.log(card.word.name.match(new RegExp(`(.*?)(${searchRequest})(.*)`)))
+
+    const matches = card.word.name.match(new RegExp(`(.*?)(${searchRequest})(.*)`))
+    if (matches) {
+      cardTitle = (
+        <div className="card__title">{matches[1]}<span className="card__title_underlined">{matches[2]}</span>{matches[3]}</div>
+      )
+    }
+  }
+
   return (
     <div
       className={cardClassName}
@@ -45,7 +59,7 @@ const WordCard: FC<Props> =({
         popConfirmPlacement="right"
         iconSize={16}
       />
-      <div className="card__title">{card.word.name}</div>
+      {cardTitle}
       <div className="card__description">{`${card.meanings.length} знач.`}</div>
     </div>
   )

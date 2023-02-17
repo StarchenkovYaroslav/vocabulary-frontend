@@ -27,6 +27,10 @@
     font-weight: bold;
 }
 
+.card__title_underlined {
+    background-color: #efef85;
+}
+
 .card__description {
     grid-area: card__description;
     font-size: 20px;
