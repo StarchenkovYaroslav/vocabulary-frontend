@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react'
+import { ICard } from '../../../../models'
+import { ITranslation } from '../../../../models/ITranslation'
+import { IWordCard } from '../../Models'
 import { CardForm } from '../CardForm'
 import { WordCardList } from '../WordCardList'
 import { ScrollableWithHeader } from '../../../../ui'
-import { ICard } from '../../../../models'
 import './WordCardsPanel.css'
 
 interface Props {
@@ -20,7 +22,29 @@ const WordCardsPanel: FC<Props> = ({
 }) => {
   const [searchRequest, setSearchRequest] = useState<string>('')
 
-  const filteredCards = cards.filter(card => card.word.name.includes(searchRequest))
+  const searchRegExp = new RegExp(`(.*?)(${searchRequest})(.*)`, 'i')
+
+  const filteredCards = !searchRequest
+    ? cards
+    : cards.reduce<IWordCard[]>((filteredCards, card) => {
+      const isWordMatched = searchRegExp.test(card.word.name)
+
+      const foundTranslation = card.meanings
+        .reduce<ITranslation[]>((translations, meaning) => [...translations, ...meaning.translations], [])
+        .find(translation => searchRegExp.test(translation.name))
+
+      if (!isWordMatched && !foundTranslation) return filteredCards
+
+      const wordCard = {
+        ...card,
+        searchResults: {
+          word: isWordMatched ? card.word.name.match(searchRegExp) : null,
+          translation: foundTranslation ? foundTranslation.name.match(searchRegExp) : null,
+        }
+    }
+
+    return [...filteredCards, wordCard]
+  }, [])
 
   const onSearchCard = (inputValue: string) => setSearchRequest(inputValue)
 
@@ -34,7 +58,6 @@ const WordCardsPanel: FC<Props> = ({
           cards={filteredCards}
           onCardClick={onCardClick}
           selectedCardId={selectedCardId}
-          searchRequest={searchRequest}
         />
       }
       headerClassName="cards-header"

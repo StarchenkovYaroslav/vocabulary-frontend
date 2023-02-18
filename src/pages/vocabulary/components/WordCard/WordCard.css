@@ -6,7 +6,8 @@
     display: grid;
     grid-template-areas:
         "card__title card__delete-button"
-        "card__description card__description";
+        "card__description card__description"
+        "card__found-translation card__found-translation";
     padding: 5px;
     transition: all .2s;
 }
@@ -27,8 +28,9 @@
     font-weight: bold;
 }
 
-.card__title_underlined {
-    background-color: #efef85;
+.card__found-translation {
+    grid-area: card__found-translation;
+    font-style: italic;
 }
 
 .card__description {
@@ -40,4 +42,8 @@
     align-self: start;
     grid-area: card__delete-button;
     justify-self: end;
+}
+
+.underlined {
+    background-color: #efef85;
 }

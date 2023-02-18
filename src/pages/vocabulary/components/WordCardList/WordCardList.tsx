@@ -1,26 +1,24 @@
 import React, { FC } from 'react'
-import { ICard } from '../../../../models'
+import { IWordCard } from '../../Models'
 import { WordCard } from '../WordCard'
 import { List } from '../../../../ui'
 import './WordCardList.css'
 
 interface Props {
-  cards: ICard[]
+  cards: IWordCard[]
   onCardClick: (cardId: string) => void
   selectedCardId: string
-  searchRequest: string
 }
 
 const WordCardList: FC<Props> = ({
   cards,
   onCardClick,
   selectedCardId,
-  searchRequest,
 }) => {
   if (!cards.length) return <div>Список слов пуст</div>
 
   return (
-    <List<ICard>
+    <List<IWordCard>
       data={cards}
       getItemKey={card => card._id}
       renderItem={card => (
@@ -28,7 +26,6 @@ const WordCardList: FC<Props> = ({
           card={card}
           isSelected={card._id === selectedCardId}
           onClick={onCardClick}
-          searchRequest={searchRequest}
         />
       )}
       itemClassName="card-item"
