@@ -1,0 +1,1 @@
+export { filterWordCards } from './filterWordCards'

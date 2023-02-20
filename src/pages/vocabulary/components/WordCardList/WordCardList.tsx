@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { IWordCard } from '../../Models'
+import { IWordCard } from '../../models'
 import { WordCard } from '../WordCard'
 import { List } from '../../../../ui'
 import './WordCardList.css'

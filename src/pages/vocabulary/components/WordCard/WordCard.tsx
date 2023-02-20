@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { IWordCard } from '../../Models'
+import { IWordCard } from '../../models'
 import { useRemoveCardMutation } from '../../../../store/api'
 import { DeleteButton } from '../../../../ui'
 import { useFollowServerStatus } from '../../../../hooks'
@@ -34,7 +34,7 @@ const WordCard: FC<Props> =({
 
   let cardTitleElement: JSX.Element
   if (card.searchResults && card.searchResults.word) {
-    const [_, formerPlainText, underlinedText, latterPlainText] = card.searchResults.word
+    const { formerPlainText, underlinedText, latterPlainText } = card.searchResults.word
     cardTitleElement = <div className="card__title">{formerPlainText}<span className="underlined">{underlinedText}</span>{latterPlainText}</div>
   } else {
     cardTitleElement = <div className="card__title">{card.word.name}</div>
@@ -42,7 +42,7 @@ const WordCard: FC<Props> =({
 
   let cardTranslationElement: JSX.Element | null = null
   if (card.searchResults && card.searchResults.translation) {
-    const [_, formerPlainText, underlinedText, latterPlainText] = card.searchResults.translation
+    const { formerPlainText, underlinedText, latterPlainText } = card.searchResults.translation
     cardTranslationElement = <div className="card__found-translation">{formerPlainText}<span className="underlined">{underlinedText}</span>{latterPlainText}</div>
   }
 
