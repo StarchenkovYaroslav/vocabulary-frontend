@@ -6,40 +6,43 @@ export const filterWordCards = (
   cards: ICard[],
   searchRequest: string,
 ): IWordCard[] => {
-  const searchRegExp = new RegExp(`(.*?)(${searchRequest})(.*)`, 'i')
+  const finalSearchRequest = searchRequest.replaceAll(/.|\(|\)/g, '\\$&')
+
+  const searchRegExp = new RegExp(`(.*?)(${finalSearchRequest})(.*)`, 'i')
 
   return cards.reduce<IWordCard[]>((filteredCards, card) => {
-    const isWordMatched = searchRegExp.test(card.word.name)
+    const wordSearchResult = card.word.name.match(searchRegExp)
 
     const foundTranslation = card.meanings
       .reduce<ITranslation[]>((translations, meaning) => [...translations, ...meaning.translations], [])
       .find(translation => searchRegExp.test(translation.name))
 
-    if (!isWordMatched && !foundTranslation) return filteredCards
+    if (!wordSearchResult && !foundTranslation) return filteredCards
 
-    const searchResults: ISearchResults  = {
+    const searchResults: ISearchResults = {
       word: null,
       translation: null,
     }
 
-    if (isWordMatched) {
-      const wordSearchResult = card.word.name.match(searchRegExp)
-      if (wordSearchResult) {
-        const [_, formerPlainText, underlinedText, latterPlainText] = wordSearchResult
-        searchResults.word = { formerPlainText, underlinedText, latterPlainText }
+    if (wordSearchResult) {
+      searchResults.word = {
+        formerPlainText: wordSearchResult[1],
+        underlinedText: wordSearchResult[2],
+        latterPlainText: wordSearchResult[3],
       }
     }
 
     if (foundTranslation) {
       const translationSearchResult = foundTranslation.name.match(searchRegExp)
       if (translationSearchResult) {
-        const [_, formerPlainText, underlinedText, latterPlainText] = translationSearchResult
-        searchResults.translation = { formerPlainText, underlinedText, latterPlainText }
+        searchResults.translation = {
+          formerPlainText: translationSearchResult[1],
+          underlinedText: translationSearchResult[2],
+          latterPlainText: translationSearchResult[3],
+        }
       }
     }
 
-    const wordCard = { ...card, searchResults }
-
-    return [...filteredCards, wordCard]
+    return [...filteredCards, { ...card, searchResults }]
   }, [])
 }

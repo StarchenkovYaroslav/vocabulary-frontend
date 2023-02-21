@@ -1,6 +1,6 @@
 import { ICard } from '../../../models'
 
-interface ISplittedText {
+export interface ISplittedText {
   formerPlainText: string
   underlinedText: string
   latterPlainText: string

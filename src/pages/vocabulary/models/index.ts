@@ -1,1 +1,1 @@
-export type { IWordCard, ISearchResults } from './IWordCard'
+export type { IWordCard, ISearchResults, ISplittedText } from './IWordCard'

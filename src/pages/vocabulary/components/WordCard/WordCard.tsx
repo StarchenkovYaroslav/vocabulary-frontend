@@ -3,6 +3,7 @@ import { IWordCard } from '../../models'
 import { useRemoveCardMutation } from '../../../../store/api'
 import { DeleteButton } from '../../../../ui'
 import { useFollowServerStatus } from '../../../../hooks'
+import { SplittedText } from '../SplittedText'
 import './WordCard.css'
 
 interface Props {
@@ -32,20 +33,6 @@ const WordCard: FC<Props> =({
   let cardClassName = 'card'
   if (isSelected) cardClassName += ' card_selected'
 
-  let cardTitleElement: JSX.Element
-  if (card.searchResults && card.searchResults.word) {
-    const { formerPlainText, underlinedText, latterPlainText } = card.searchResults.word
-    cardTitleElement = <div className="card__title">{formerPlainText}<span className="underlined">{underlinedText}</span>{latterPlainText}</div>
-  } else {
-    cardTitleElement = <div className="card__title">{card.word.name}</div>
-  }
-
-  let cardTranslationElement: JSX.Element | null = null
-  if (card.searchResults && card.searchResults.translation) {
-    const { formerPlainText, underlinedText, latterPlainText } = card.searchResults.translation
-    cardTranslationElement = <div className="card__found-translation">{formerPlainText}<span className="underlined">{underlinedText}</span>{latterPlainText}</div>
-  }
-
   return (
     <div
       className={cardClassName}
@@ -59,8 +46,17 @@ const WordCard: FC<Props> =({
         popConfirmPlacement="right"
         iconSize={16}
       />
-      {cardTitleElement}
-      {cardTranslationElement}
+      <div className="card__title">
+        {card.searchResults && card.searchResults.word
+          ? <SplittedText text={card.searchResults.word} />
+          : card.word.name
+        }
+      </div>
+      {card.searchResults && card.searchResults.translation &&
+        <div className="card__found-translation">
+          <SplittedText text={card.searchResults.translation} />
+        </div>
+      }
       <div className="card__description">{`Всего ${card.meanings.length} знач.`}</div>
     </div>
   )

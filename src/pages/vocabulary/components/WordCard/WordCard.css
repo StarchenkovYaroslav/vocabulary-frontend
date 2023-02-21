@@ -43,7 +43,3 @@
     grid-area: card__delete-button;
     justify-self: end;
 }
-
-.underlined {
-    background-color: #efef85;
-}
