@@ -6,7 +6,7 @@ export const filterWordCards = (
   cards: ICard[],
   searchRequest: string,
 ): IWordCard[] => {
-  const finalSearchRequest = searchRequest.replaceAll(/.|\(|\)/g, '\\$&')
+  const finalSearchRequest = searchRequest.replaceAll(/[.()]/g, '\\$&')
 
   const searchRegExp = new RegExp(`(.*?)(${finalSearchRequest})(.*)`, 'i')
 
