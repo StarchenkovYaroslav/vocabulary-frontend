@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { ICard } from '../../../../models'
+import { IWordCard } from '../../models'
 import { WordCard } from '../WordCard'
 import { List } from '../../../../ui'
 import './WordCardList.css'
 
 interface Props {
-  cards: ICard[]
+  cards: IWordCard[]
   onCardClick: (cardId: string) => void
   selectedCardId: string
 }
@@ -18,7 +18,7 @@ const WordCardList: FC<Props> = ({
   if (!cards.length) return <div>Список слов пуст</div>
 
   return (
-    <List<ICard>
+    <List<IWordCard>
       data={cards}
       getItemKey={card => card._id}
       renderItem={card => (

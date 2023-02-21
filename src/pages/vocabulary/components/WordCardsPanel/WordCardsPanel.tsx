@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
+import { ICard } from '../../../../models'
 import { CardForm } from '../CardForm'
 import { WordCardList } from '../WordCardList'
 import { ScrollableWithHeader } from '../../../../ui'
-import { ICard } from '../../../../models'
+import { filterWordCards } from '../../helpers'
 import './WordCardsPanel.css'
 
 interface Props {
@@ -18,16 +19,24 @@ const WordCardsPanel: FC<Props> = ({
   vocabularyId,
   onCardClick,
 }) => {
+  const [searchRequest, setSearchRequest] = useState<string>('')
+
+  const filteredCards = !searchRequest ? cards : filterWordCards(cards, searchRequest)
+
+  const onSearchCard = (inputValue: string) => setSearchRequest(inputValue)
+
   return (
     <ScrollableWithHeader
-      headerElement={(<CardForm vocabularyId={vocabularyId} />)}
-      contentElement={(
+      headerElement={
+        <CardForm vocabularyId={vocabularyId} onSearchCard={onSearchCard} />
+      }
+      contentElement={
         <WordCardList
-          cards={cards}
+          cards={filteredCards}
           onCardClick={onCardClick}
           selectedCardId={selectedCardId}
         />
-      )}
+      }
       headerClassName="cards-header"
       contentClassName="cards-content"
     />

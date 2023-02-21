@@ -1,20 +1,21 @@
 import React, { FC } from 'react'
-import { ICard } from '../../../../models'
+import { IWordCard } from '../../models'
 import { useRemoveCardMutation } from '../../../../store/api'
 import { DeleteButton } from '../../../../ui'
 import { useFollowServerStatus } from '../../../../hooks'
+import { SplittedText } from '../SplittedText'
 import './WordCard.css'
 
 interface Props {
-  card: ICard
+  card: IWordCard
   isSelected: boolean
   onClick: (cardId: string) => void
 }
 
 const WordCard: FC<Props> =({
- card,
- isSelected,
- onClick,
+  card,
+  isSelected,
+  onClick,
 }) => {
   const [
     removeCard,
@@ -45,8 +46,18 @@ const WordCard: FC<Props> =({
         popConfirmPlacement="right"
         iconSize={16}
       />
-      <div className="card__title">{card.word.name}</div>
-      <div className="card__description">{`${card.meanings.length} знач.`}</div>
+      <div className="card__title">
+        {card.searchResults && card.searchResults.word
+          ? <SplittedText text={card.searchResults.word} />
+          : card.word.name
+        }
+      </div>
+      {card.searchResults && card.searchResults.translation &&
+        <div className="card__found-translation">
+          <SplittedText text={card.searchResults.translation} />
+        </div>
+      }
+      <div className="card__description">{`Всего ${card.meanings.length} знач.`}</div>
     </div>
   )
 }

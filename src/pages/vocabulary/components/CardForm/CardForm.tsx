@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { ChangeEventHandler, FC } from 'react'
 import { Form, Input, SubmitButton } from '../../../../ui'
 import { AddCardRequest, useAddCardMutation } from '../../../../store/api'
 import { useFollowServerStatus } from '../../../../hooks'
@@ -8,15 +8,20 @@ type FormValues = Omit<AddCardRequest, 'vocabularyId'>
 
 interface Props {
   vocabularyId: string
+  onSearchCard: (inputValue: string) => void
 }
 
-const CardForm: FC<Props> = ({ vocabularyId }) => {
+const CardForm: FC<Props> = ({ vocabularyId, onSearchCard }) => {
   const [addCard, { status: addingCardStatus }] = useAddCardMutation()
 
   useFollowServerStatus({ status: addingCardStatus })
 
   const handleAddCard = async (args: FormValues) => {
     await addCard({ ...args, vocabularyId })
+  }
+
+  const handleSearchCard: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    onSearchCard(target.value)
   }
 
   return (
@@ -26,6 +31,7 @@ const CardForm: FC<Props> = ({ vocabularyId }) => {
         type="text"
         className="card-form__input"
         placeholder="Найти/добавить слово"
+        onChange={handleSearchCard}
       />
       <SubmitButton
         className="card-form__button"
