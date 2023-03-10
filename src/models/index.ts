@@ -1,0 +1,5 @@
+export type { IVocabulary } from './IVocabulary'
+export type { ICard } from './ICard'
+export type { ITranslation } from './ITranslation'
+export type { IMeaning } from './IMeaning'
+export type { IWord } from './IWord'
